@@ -1,0 +1,143 @@
+.footer {
+  background: #2b2b2b;
+  color: #f8f8f8;
+  padding: 64px 24px 40px;
+}
+
+.top {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(248, 248, 248, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand img {
+  width: 48px;
+  height: 48px;
+}
+
+.wordmark {
+  font-size: 16px;
+  font-weight: 700;
+  color: #f8f8f8;
+}
+
+.tag {
+  font-size: 16px;
+  line-height: 1.5;
+  flex: 1;
+  margin: 0;
+}
+
+.tag em {
+  font-style: normal;
+  color: #d2e968;
+}
+
+.grid {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+
+.nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.nav h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+  color: #d2e968;
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav a {
+  color: rgba(248, 248, 248, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #d2e968;
+}
+
+.social {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(248, 248, 248, 0.1);
+  border-radius: 4px;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+
+.social a:hover {
+  background: #d2e968;
+  color: #2b2b2b;
+}
+
+.bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid rgba(248, 248, 248, 0.1);
+  font-size: 12px;
+  color: rgba(248, 248, 248, 0.5);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 48px 24px 32px;
+  }
+
+  .top {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .nav {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
