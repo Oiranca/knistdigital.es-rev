@@ -1,9 +1,29 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { routes } from '@/lib/data';
 
 export default function EquipoPage() {
+  const [isLight, setIsLight] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("knits-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const shouldBeLight = saved ? saved === "light" : !prefersDark;
+    setIsLight(shouldBeLight);
+    setMounted(true);
+  }, []);
+
+  const toggle = () => {
+    const newVal = !isLight;
+    setIsLight(newVal);
+    localStorage.setItem("knits-theme", newVal ? "light" : "dark");
+  };
+
+  const rootClass = `v3-root var-cs${mounted && isLight ? " is-light" : ""}`;
+
   const team = [
     {
       name: 'Samuel Romero Arbelo',
@@ -23,7 +43,7 @@ export default function EquipoPage() {
   ];
 
   return (
-    <div className="v3-root var-cs">
+    <div className={rootClass}>
       <header className="v3-nav" role="banner">
         <a href="#main" className="v3-skip">Saltar al contenido</a>
         <div className="v3-nav-inner">
@@ -41,7 +61,16 @@ export default function EquipoPage() {
               Precios
             </Link>
           </nav>
-          <div className="v3-nav-actions">
+          <div className="v3-nav-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={toggle}
+              className="v3-nav-link"
+              aria-label={isLight ? 'Modo oscuro' : 'Modo claro'}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', color: 'inherit' }}
+            >
+              {mounted ? (isLight ? '☀️' : '🌙') : '🌙'}
+            </button>
             <Link href={routes.contacto} className="v3-cta">
               Contactar <span className="v3-cta-arrow" aria-hidden="true">→</span>
             </Link>
