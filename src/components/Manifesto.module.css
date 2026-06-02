@@ -1,0 +1,131 @@
+.manifesto {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+  color: #f8f8f8;
+}
+
+.sectionHead {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #a8ba53;
+}
+
+.sectionHead h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  margin: 12px 0 16px 0;
+  color: #f8f8f8;
+}
+
+.sectionHead p {
+  font-size: 16px;
+  color: rgba(248, 248, 248, 0.7);
+  margin: 0;
+  max-width: 600px;
+}
+
+.commits {
+  max-width: 1200px;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.commit {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 24px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(210, 233, 104, 0.15);
+  border-radius: 8px;
+  animation: slideUp 0.6s ease-out both;
+  animation-delay: calc(var(--i) * 100ms);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.commitHash {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.commitBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.commitAuthor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #a8ba53;
+}
+
+.commitBody h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #d2e968;
+}
+
+.commitBody p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(248, 248, 248, 0.7);
+  margin: 0;
+}
+
+.commitMeta {
+  display: flex;
+  gap: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #888;
+}
+
+.commitMeta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  .manifesto {
+    padding: 60px 24px;
+  }
+
+  .commit {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .commitHash {
+    display: none;
+  }
+
+  .commitBody h3 {
+    font-size: 16px;
+  }
+}

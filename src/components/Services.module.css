@@ -1,0 +1,250 @@
+.services {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, #f8f8f8 0%, #fafafa 100%);
+}
+
+.sectionHead {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #a8ba53;
+}
+
+.sectionHead h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  margin: 12px 0 16px 0;
+  color: #2b2b2b;
+}
+
+.sectionHead p {
+  font-size: 16px;
+  color: rgba(43, 43, 43, 0.7);
+  margin: 0;
+  max-width: 600px;
+}
+
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  background: white;
+  border: 1px solid rgba(43, 43, 43, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tree {
+  background: #1a1a1a;
+  border-right: 1px solid rgba(210, 233, 104, 0.1);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.treeHead {
+  padding: 12px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(210, 233, 104, 0.1);
+}
+
+.treeItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: rgba(248, 248, 248, 0.7);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+  text-align: left;
+  width: 100%;
+}
+
+.treeItem:hover {
+  background: rgba(210, 233, 104, 0.08);
+  color: #d2e968;
+}
+
+.treeItem.active {
+  background: rgba(210, 233, 104, 0.12);
+  color: #d2e968;
+  border-left-color: #d2e968;
+}
+
+.treeIcon {
+  display: inline-block;
+  width: 12px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.treeName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.treeBadge {
+  font-size: 11px;
+  color: #666;
+  padding: 2px 4px;
+  border-radius: 2px;
+  background: rgba(210, 233, 104, 0.1);
+}
+
+.treeFoot {
+  margin-top: auto;
+  padding: 12px 16px;
+  border-top: 1px solid rgba(210, 233, 104, 0.1);
+}
+
+.treeSearch {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #666;
+}
+
+.tabs {
+  padding: 32px;
+  position: relative;
+  min-height: 400px;
+}
+
+.panel {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panelHead {
+  margin-bottom: 24px;
+}
+
+.comment {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.panel h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: #2b2b2b;
+}
+
+.panelLila h3 {
+  color: #a99df1;
+}
+
+.panelTurquesa h3 {
+  color: #01c095;
+}
+
+.panelPistacho h3 {
+  color: #d2e968;
+}
+
+.panelDesc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(43, 43, 43, 0.7);
+  margin: 16px 0 24px 0;
+}
+
+.snippet {
+  background: #1a1a1a;
+  border: 1px solid rgba(210, 233, 104, 0.2);
+  border-radius: 4px;
+  padding: 16px;
+  margin: 24px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #f8f8f8;
+  overflow-x: auto;
+}
+
+.snippet code {
+  display: flex;
+  flex-direction: column;
+}
+
+.num {
+  color: #666;
+  display: inline-block;
+  width: 24px;
+  text-align: right;
+  margin-right: 12px;
+  user-select: none;
+}
+
+.panelLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  background: transparent;
+  border: 1px solid rgba(43, 43, 43, 0.2);
+  border-radius: 6px;
+  color: #2b2b2b;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.panelLink:hover {
+  background: rgba(210, 233, 104, 0.1);
+  border-color: #d2e968;
+  color: #d2e968;
+}
+
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .tree {
+    border-right: none;
+    border-bottom: 1px solid rgba(210, 233, 104, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .tabs {
+    padding: 24px;
+    min-height: auto;
+  }
+
+  .panel h3 {
+    font-size: 20px;
+  }
+}
