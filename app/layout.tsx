@@ -1,25 +1,26 @@
 import type { Metadata } from 'next';
 import { Nunito, Red_Hat_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import './variants.css';
 
 const nunito = Nunito({
-  variable: '--font-body',
+  variable: '--kd-body',
   subsets: ['latin'],
 });
 
 const redHatDisplay = Red_Hat_Display({
-  variable: '--font-display',
+  variable: '--kd-display',
   subsets: ['latin'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-mono',
+  variable: '--kd-mono',
   subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: 'KnitsDigital',
-  description: 'Estudio digital especializado en producto accesible, inclusivo y sostenible.',
+  title: 'KnitsDigital — Code Studio',
+  description: 'Estudio digital especializado en producto accesible, inclusivo y sostenible. WCAG 2.2, no-code, IA aplicada y auditorías reales.',
   generator: 'Next.js',
   icons: {
     icon: '/assets/isotype.png',
