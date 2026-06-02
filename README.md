@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KnitsDigital — Code Studio
 
-## Getting Started
+Estudio digital especializado en producto accesible, inclusivo y sostenible. WCAG 2.2, no-code, IA aplicada y auditorías reales.
 
-First, run the development server:
+## Stack
+
+- **Framework**: Next.js 16+ (App Router)
+- **Language**: TypeScript
+- **Styling**: CSS Modules
+- **Package Manager**: pnpm
+- **Testing**: Jest + @testing-library/react
+- **E2E Testing**: Playwright
+- **Fonts**: Nunito, Red Hat Display, JetBrains Mono
+
+## Requisitos
+
+- Node.js 20+
+- pnpm 10+
+
+## Instalación
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Desarrollo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+La aplicación estará disponible en `http://localhost:3000`
 
-## Learn More
+## Build
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm build
+pnpm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Unit Tests (Jest)
 
-## Deploy on Vercel
+```bash
+pnpm test              # Run tests
+pnpm test:watch       # Watch mode
+pnpm test:coverage    # Coverage report
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### E2E Tests (Playwright)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+pnpm e2e              # Run E2E tests
+pnpm e2e:ui           # Run in UI mode
+```
+
+## Estructura de Carpetas
+
+```
+app/
+├── page.tsx           # Home page
+├── servicios/         # Services page
+├── equipo/            # Team page
+├── precios/           # Pricing page
+├── contacto/          # Contact page
+├── privacidad/        # Privacy policy
+├── cookies/           # Cookie policy
+├── layout.tsx         # Root layout
+└── globals.css        # Global styles
+
+src/
+├── components/        # React components
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   ├── Hero.tsx
+│   ├── Layout.tsx
+│   └── __tests__/     # Component tests
+└── lib/
+    └── data.ts        # Constants and data
+
+e2e/
+└── home.spec.ts       # E2E tests
+```
+
+## Accesibilidad
+
+- WCAG 2.2 Level AA compliant
+- Semantic HTML
+- ARIA labels where needed
+- Keyboard navigation support
+- Focus management
+- Reduced motion support
+
+## Security
+
+- Next.js built-in security features
+- CSP headers (to be configured)
+- No known critical vulnerabilities
+
+**Note**: PostCSS has a moderate XSS vulnerability (GHSA-qx2v-qp2m-jg93) in versions < 8.5.10. This is a transitive dependency via Next.js and has low exploitability for static sites.
+
+## Deployment
+
+El proyecto está configurado para desplegarse en Vercel:
+
+```bash
+pnpm run build
+```
+
+## Contributing
+
+Este proyecto sigue las mejores prácticas de desarrollo con:
+- Commits pequeños y descriptivos en inglés
+- Tests unitarios e E2E
+- Código limpio y mantenible
+- Documentación clara
+
+## License
+
+© 2026 KnitsDigital
