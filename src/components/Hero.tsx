@@ -22,10 +22,13 @@ export function Hero() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
+    if (typeof window === 'undefined') return;
 
-    if (mediaQuery.matches) {
+    const mediaQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    const prefersReduced = mediaQuery?.matches ?? false;
+    setPrefersReducedMotion(prefersReduced);
+
+    if (prefersReduced) {
       setLineCount(CODE_LINES.length);
       return;
     }
