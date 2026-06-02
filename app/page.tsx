@@ -172,7 +172,7 @@ function Manifesto() {
         {manifesto.map((m, i) => (
           <li key={m.title} className="cs-commit is-in" style={{ '--i': i } as any}>
             <div className="cs-commit-hash" aria-hidden="true">
-              {Math.random().toString(16).slice(2, 9)}
+              {(m.title + i).split('').reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16).slice(-7)}
             </div>
             <div className="cs-commit-body">
               <span className="cs-commit-author">knits &lt;hola@knitsdigital.es&gt;</span>
