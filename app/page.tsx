@@ -1,6 +1,6 @@
 'use client';
 
-import { nav, routes, services, manifesto, collaborators } from '@/lib/data';
+import { nav, routes, services, manifesto, collaborators, footerLegal } from '@/lib/data';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Icon } from '@/lib/icons';
@@ -50,7 +50,7 @@ function Hero({ isLight }: { isLight: boolean }) {
             }`}
           >
             <span
-              className="inline-block h-2 w-2 rounded-full bg-kd-pistacho shadow-[0_0_8px_#d2e968] animate-[cs-pulse_1.6s_ease-in-out_infinite]"
+              className="inline-block h-2 w-2 rounded-full bg-kd-pistacho shadow-[0_0_8px_var(--color-kd-pistacho)] animate-cs-pulse"
               aria-hidden="true"
             />
             <span>~/knitsdigital</span>
@@ -84,7 +84,7 @@ function Hero({ isLight }: { isLight: boolean }) {
               href={routes.contacto}
               className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-6 py-3 font-display font-extrabold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
             >
-              Contactar <span className="animate-[cs-blink_1s_steps(1)_infinite]" aria-hidden="true">_</span>
+              Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
             </Link>
             <Link
               href={routes.servicios}
@@ -146,13 +146,13 @@ function Hero({ isLight }: { isLight: boolean }) {
                   {l.parts.map((part, idx) => {
                     const colorClass =
                       part.type === 'keyword'
-                        ? 'text-[#c586c0]'
+                        ? 'text-syn-keyword'
                         : part.type === 'comment'
                         ? 'text-syn-comment'
                         : part.type === 'string'
                         ? 'text-kd-pistacho'
                         : part.type === 'bool'
-                        ? 'text-[#569cd6]'
+                        ? 'text-syn-bool'
                         : '';
                     return (
                       <span key={idx} className={colorClass}>
@@ -164,7 +164,7 @@ function Hero({ isLight }: { isLight: boolean }) {
               </code>
             ))}
             {lineCount < CODE_LINES.length && (
-              <span className="inline-block animate-[cs-blink_1s_steps(1)_infinite] text-kd-pistacho" aria-hidden="true">
+              <span className="inline-block animate-cs-blink text-kd-pistacho" aria-hidden="true">
                 ▍
               </span>
             )}
@@ -302,18 +302,18 @@ function Services({ isLight }: { isLight: boolean }) {
                   <code>
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>01</span>
                     {' '}
-                    <span className="text-[#c586c0]">export const</span>
+                    <span className="text-syn-keyword">export const</span>
                     <span>{` ${s.tag} `}</span>
-                    <span className="text-[#c586c0]">=</span>
+                    <span className="text-syn-keyword">=</span>
                     <span>{` () `}</span>
-                    <span className="text-[#c586c0]">{'=>'}</span>
+                    <span className="text-syn-keyword">{'=>'}</span>
                     <span>{` {`}</span>
                     {'\n'}
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>02</span>
                     {' '}
-                    <span className="text-[#c586c0]">return</span>
+                    <span className="text-syn-keyword">return</span>
                     <span>{` { accesible: `}</span>
-                    <span className="text-[#569cd6]">true</span>
+                    <span className="text-syn-bool">true</span>
                     <span>{`, impacto: `}</span>
                     <span className="text-kd-pistacho">'real'</span>
                     <span>{` };`}</span>
@@ -346,7 +346,7 @@ function Manifesto({ isLight }: { isLight: boolean }) {
   return (
     <section
       className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''}`}
-      style={isLight ? undefined : { background: 'color-mix(in srgb, #14151a 72%, transparent)' }}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 72%, transparent)' }}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
@@ -396,7 +396,10 @@ function Manifesto({ isLight }: { isLight: boolean }) {
                 {m.desc}
               </p>
               <div className={`mt-2 flex gap-4 font-mono text-xs ${isLight ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-                <span>♿ {m.icon}</span>
+                <span className="inline-flex items-center gap-1">
+                  <Icon name={m.icon as 'accessibility' | 'people' | 'growth'} width={14} height={14} aria-hidden="true" />
+                  {m.icon}
+                </span>
                 <span>+{12 + i * 3} -0</span>
                 <span>main</span>
               </div>
@@ -415,7 +418,7 @@ function Collab({ isLight }: { isLight: boolean }) {
   return (
     <section
       className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : ''}`}
-      style={isLight ? undefined : { background: 'color-mix(in srgb, #14151a 80%, transparent)' }}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 80%, transparent)' }}
       aria-labelledby="collab-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
@@ -454,13 +457,13 @@ function Collab({ isLight }: { isLight: boolean }) {
                   aria-label={c.alt}
                   tabIndex={i >= collaborators.length ? -1 : 0}
                   aria-hidden={i >= collaborators.length}
-                  className="flex h-16 w-32 items-center justify-center rounded opacity-50 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+                  className="flex h-16 w-36 items-center justify-center rounded-lg bg-white px-3 shadow-sm transition-all hover:shadow-md hover:scale-105"
                 >
                   <img
                     src={c.img}
                     alt={i < collaborators.length ? c.alt : ''}
                     loading="lazy"
-                    className="max-h-10 w-auto max-w-full object-contain"
+                    className="max-h-[42px] w-auto max-w-full object-contain"
                   />
                 </a>
               </li>
@@ -478,7 +481,7 @@ function Collab({ isLight }: { isLight: boolean }) {
               : 'border-cs-line text-cs-fg-soft hover:border-white/20'
           }`}
         >
-          {paused ? '▶' : '⏸'}
+          <Icon name={paused ? 'play' : 'pause'} width={16} height={16} aria-hidden="true" />
           <span>{paused ? 'Play' : 'Pause'}</span>
         </button>
       </div>
@@ -515,7 +518,7 @@ function CTA({ isLight }: { isLight: boolean }) {
           href={routes.contacto}
           className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-8 py-4 font-display font-extrabold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
-          Contactar <span className="animate-[cs-blink_1s_steps(1)_infinite]" aria-hidden="true">_</span>
+          Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
         </Link>
       </div>
     </section>
@@ -668,7 +671,7 @@ export default function Home() {
           aria-label="Menú de navegación"
           aria-hidden={!menuOpen}
           className={`fixed top-0 right-0 bottom-0 z-50 flex flex-col gap-1 p-6 md:hidden ${
-            light ? 'bg-[#f5f5f7]' : 'bg-[#14151a]'
+            light ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'
           }`}
           style={{
             width: 'min(80vw, 320px)',
@@ -739,12 +742,68 @@ export default function Home() {
       </main>
 
       <footer
-        className={`border-t px-8 py-6 text-center font-mono text-sm ${
-          light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'
-        }`}
+        className={`border-t px-8 py-12 ${light ? 'border-black/10' : 'border-cs-line'}`}
         role="contentinfo"
       >
-        KnitsDigital © {new Date().getFullYear()}
+        <div className="mx-auto max-w-[1320px]">
+          {/* Brand */}
+          <div className="mb-10 flex items-start gap-4">
+            <img src="/assets/isotype.png" alt="" width={40} height={40} aria-hidden="true" />
+            <div>
+              <div className={`font-mono text-lg font-bold tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+                knitsdigital
+              </div>
+              <p className={`m-0 mt-1 max-w-[40ch] text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Donde la tecnología, la <em>creatividad</em> y las personas <em>se entrelazan</em>.
+              </p>
+            </div>
+          </div>
+
+          {/* 3-column grid */}
+          <div className="mb-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Navega</h3>
+              <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                {nav.map((item) => (
+                  <li key={item.to}>
+                    <Link href={item.to} className={`font-mono text-sm no-underline transition-colors hover:text-kd-pistacho ${light ? 'text-[#1a1b1e]' : 'text-cs-fg-soft'}`}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Legal</h3>
+              <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                {footerLegal.map((item) => (
+                  <li key={item.to}>
+                    <Link href={item.to} className={`font-mono text-sm no-underline transition-colors hover:text-kd-pistacho ${light ? 'text-[#1a1b1e]' : 'text-cs-fg-soft'}`}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Síguenos</h3>
+              <div className="flex gap-4">
+                <a href="https://instagram.com/knitsdigital" target="_blank" rel="noreferrer" aria-label="Instagram de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                  <Icon name="instagram" width={20} height={20} aria-hidden="true" />
+                </a>
+                <a href="https://linkedin.com/company/knitsdigital" target="_blank" rel="noreferrer" aria-label="LinkedIn de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                  <Icon name="linkedin" width={20} height={20} aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className={`flex flex-col gap-1 border-t pt-6 font-mono text-xs sm:flex-row sm:items-center sm:justify-between ${light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'}`}>
+            <p className="m-0">© KnitsDigital {new Date().getFullYear()}</p>
+            <p className="m-0">Hecho con accesibilidad como hilo conductor.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
