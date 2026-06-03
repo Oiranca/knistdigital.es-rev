@@ -46,11 +46,11 @@ function Hero({ isLight }: { isLight: boolean }) {
             className={`inline-flex items-center gap-3 self-start rounded-full border px-4 py-2 font-mono text-sm font-medium ${
               isLight
                 ? 'border-black/10 bg-white text-[#1a1b1e]'
-                : 'border-white/10 bg-white/5 text-cs-fg'
+                : 'border-white/[0.14] bg-white/5 text-cs-fg'
             }`}
           >
             <span
-              className="inline-block h-2 w-2 rounded-full bg-kd-turquesa shadow-[0_0_8px_#01c095] animate-[cs-pulse_1.6s_ease-in-out_infinite]"
+              className="inline-block h-2 w-2 rounded-full bg-kd-pistacho shadow-[0_0_8px_#d2e968] animate-[cs-pulse_1.6s_ease-in-out_infinite]"
               aria-hidden="true"
             />
             <span>~/knitsdigital</span>
@@ -150,7 +150,7 @@ function Hero({ isLight }: { isLight: boolean }) {
                         : part.type === 'comment'
                         ? 'text-[#6a9955]'
                         : part.type === 'string'
-                        ? 'text-[#01c095]'
+                        ? 'text-kd-pistacho'
                         : part.type === 'bool'
                         ? 'text-[#569cd6]'
                         : '';
@@ -184,7 +184,7 @@ function Services({ isLight }: { isLight: boolean }) {
       aria-labelledby="services-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
           {'/* servicios */'}
         </span>
         <h2
@@ -232,7 +232,7 @@ function Services({ isLight }: { isLight: boolean }) {
                     active === i
                       ? isLight
                         ? 'bg-kd-lila-soft text-kd-lila-deep'
-                        : 'bg-white/10 text-kd-pistacho'
+                        : 'bg-[color:var(--color-tab-active-dark)] text-kd-pistacho'
                       : isLight
                       ? 'text-[#1a1b1e] hover:bg-black/5'
                       : 'text-cs-fg-soft hover:bg-white/5'
@@ -315,7 +315,7 @@ function Services({ isLight }: { isLight: boolean }) {
                     <span>{` { accesible: `}</span>
                     <span className="text-[#569cd6]">true</span>
                     <span>{`, impacto: `}</span>
-                    <span className="text-[#01c095]">'real'</span>
+                    <span className="text-kd-pistacho">'real'</span>
                     <span>{` };`}</span>
                     {'\n'}
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>03</span>
@@ -329,7 +329,7 @@ function Services({ isLight }: { isLight: boolean }) {
                 className={`self-start border-b pb-0.5 font-mono text-sm font-bold no-underline transition-colors ${
                   isLight
                     ? 'border-kd-lila-deep text-kd-lila-deep hover:text-kd-lila'
-                    : 'border-kd-pistacho text-kd-pistacho hover:text-kd-pistacho/80'
+                    : 'border-kd-pistacho text-kd-pistacho hover:text-kd-pistacho'
                 }`}
               >
                 Saber más <span aria-hidden="true">→</span>
@@ -345,11 +345,12 @@ function Services({ isLight }: { isLight: boolean }) {
 function Manifesto({ isLight }: { isLight: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`}
+      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''}`}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, #14151a 72%, transparent)' }}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
           {'/* manifest */'}
         </span>
         <h2
@@ -374,7 +375,7 @@ function Manifesto({ isLight }: { isLight: boolean }) {
           >
             <div
               className={`shrink-0 select-none font-mono text-sm font-bold ${
-                isLight ? 'text-kd-turquesa-deep' : 'text-cs-fg-soft'
+                isLight ? 'text-[#6a9955]' : 'text-cs-fg-soft'
               }`}
               aria-hidden="true"
             >
@@ -385,7 +386,7 @@ function Manifesto({ isLight }: { isLight: boolean }) {
                 .slice(-7)}
             </div>
             <div className="flex flex-col gap-1">
-              <span className={`font-mono text-xs ${isLight ? 'text-kd-turquesa-deep' : 'text-kd-pistacho/70'}`}>
+              <span className={`font-mono text-xs ${isLight ? 'text-[#6a9955]' : 'text-kd-pistacho/70'}`}>
                 knits &lt;hola@knitsdigital.es&gt;
               </span>
               <h3 className={`m-0 font-display font-bold text-lg ${isLight ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
@@ -413,11 +414,12 @@ function Collab({ isLight }: { isLight: boolean }) {
 
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg'}`}
+      className={`px-8 py-20 ${isLight ? '' : 'bg-cs-bg'}`}
+      style={isLight ? { background: 'color-mix(in srgb, #14151a 80%, transparent)' } : undefined}
       aria-labelledby="collab-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
           {'/* clientes */'}
         </span>
         <h2
@@ -487,7 +489,8 @@ function Collab({ isLight }: { isLight: boolean }) {
 function CTA({ isLight }: { isLight: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`}
+      className={`px-8 py-20 ${isLight ? '' : 'bg-cs-bg-2'}`}
+      style={isLight ? { background: 'color-mix(in srgb, #14151a 80%, transparent)' } : undefined}
       aria-labelledby="cta-title"
     >
       <div
@@ -495,7 +498,7 @@ function CTA({ isLight }: { isLight: boolean }) {
           isLight ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'
         }`}
       >
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
           {'/* contacto */'}
         </span>
         <h2
@@ -623,7 +626,7 @@ export default function Home() {
               href={routes.contacto}
               className={`hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
                 light
-                  ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                  ? 'bg-kd-black text-[#ffffff] hover:bg-kd-black/80'
                   : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
               }`}
             >
@@ -714,7 +717,7 @@ export default function Home() {
             tabIndex={menuOpen ? 0 : -1}
             className={`mt-4 flex items-center justify-center gap-2 rounded-full px-6 py-3 font-display font-extrabold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
               light
-                ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                ? 'bg-kd-black text-[#ffffff] hover:bg-kd-black/80'
                 : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
             }`}
             style={{

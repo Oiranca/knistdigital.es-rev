@@ -94,7 +94,7 @@ export default function ContactoPage() {
       <main id="main" tabIndex={-1}>
         <section className="px-8 py-20" aria-labelledby="contacto-title">
           <div className="mx-auto max-w-[1320px] text-center">
-            <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+            <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
               {'/* contacto */'}
             </span>
             <h1

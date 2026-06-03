@@ -112,7 +112,7 @@ export default function EquipoPage() {
         <section className="px-8 py-20" aria-labelledby="equipo-title">
           <div className="mx-auto max-w-[1320px]">
             <header className="mb-12 flex flex-col gap-2">
-              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
                 {'/* equipo */'}
               </span>
               <h1
@@ -137,7 +137,7 @@ export default function EquipoPage() {
                 >
                   <div
                     className={`shrink-0 select-none font-mono text-sm font-bold ${
-                      light ? 'text-kd-turquesa-deep' : 'text-cs-fg-soft'
+                      light ? 'text-[#6a9955]' : 'text-cs-fg-soft'
                     }`}
                     aria-hidden="true"
                   >
@@ -147,7 +147,7 @@ export default function EquipoPage() {
                     <h3 className={`m-0 font-display font-bold text-xl ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
                       {member.name}
                     </h3>
-                    <p className={`m-0 font-mono text-sm ${light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+                    <p className={`m-0 font-mono text-sm ${light ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
                       {member.role}
                     </p>
                     <p className={`m-0 mt-1 text-base ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>

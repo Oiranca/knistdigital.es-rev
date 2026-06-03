@@ -118,7 +118,7 @@ export default function PreciosPage() {
         <section className="px-8 py-20" aria-labelledby="precios-title">
           <div className="mx-auto max-w-[1320px]">
             <header className="mb-12 flex flex-col gap-2">
-              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
                 {'/* precios */'}
               </span>
               <h1

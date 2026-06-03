@@ -67,6 +67,9 @@
 
   /* Easing */
   --kd-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Component tokens */
+  --color-tab-active-dark: color-mix(in srgb, var(--color-kd-pistacho) 14%, transparent);
 }
 
 @keyframes cs-blink {
