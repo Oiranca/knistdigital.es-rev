@@ -3,23 +3,22 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { routes } from '@/lib/data';
+import { Icon } from '@/lib/icons';
+import { resolveInitialTheme, saveTheme } from '@/lib/theme';
 
 export default function ContactoPage() {
   const [isLight, setIsLight] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('knits-theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const shouldBeLight = saved ? saved === 'light' : !prefersDark;
-    setIsLight(shouldBeLight);
+    setIsLight(resolveInitialTheme());
     setMounted(true);
   }, []);
 
   const toggle = () => {
     const newVal = !isLight;
     setIsLight(newVal);
-    localStorage.setItem('knits-theme', newVal ? 'light' : 'dark');
+    saveTheme(newVal);
   };
 
   const light = mounted && isLight;
@@ -75,7 +74,10 @@ export default function ContactoPage() {
                 light ? 'border-black/15 text-[#1a1b1e] hover:bg-black/5' : 'border-white/10 text-cs-fg hover:bg-white/8'
               }`}
             >
-              {mounted ? (isLight ? '☀️' : '🌙') : '🌙'}
+              {mounted
+                ? <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
+                : <Icon name="moon" width={18} height={18} aria-hidden="true" />
+              }
             </button>
             <a
               href="mailto:hola@knitsdigital.es"

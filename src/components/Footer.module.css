@@ -91,21 +91,22 @@
   gap: 12px !important;
 }
 
-.social a {
+.socialLink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   background: rgba(248, 248, 248, 0.1);
-  border-radius: 4px;
-  transition: all 0.2s;
-  font-size: 16px;
+  border-radius: 6px;
+  color: rgba(248, 248, 248, 0.7);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 
-.social a:hover {
+.socialLink:hover {
   background: #d2e968;
   color: #2b2b2b;
+  transform: translateY(-2px);
 }
 
 .bottom {

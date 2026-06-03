@@ -38,6 +38,35 @@
   --animate-cs-blink: cs-blink 1s steps(1) infinite;
   --animate-cs-pulse: cs-pulse 1.6s ease-in-out infinite;
   --animate-cs-marquee: cs-marquee 38s linear infinite;
+
+  /* v1 animations */
+  --animate-v1-draw: v1-draw 2.2s ease forwards;
+  --animate-v1-pulse: v1-pulse 2s ease-in-out infinite;
+  --animate-v1-fadeup: v1-fadeup 0.6s var(--kd-ease, ease) forwards;
+  --animate-v1-line-in: v1-line-in 0.5s var(--kd-ease, ease) forwards;
+  --animate-v1-bob: v1-bob 2s ease-in-out infinite;
+
+  /* v3 animations */
+  --animate-v3-draw: v3-draw 3.4s ease forwards;
+  --animate-v3-led: v3-led 2s ease-in-out infinite;
+  --animate-v3-rise: v3-rise 0.6s var(--kd-ease, ease) forwards;
+  --animate-v3-marquee: v3-marquee 28s linear infinite;
+  --animate-v3-orbit: v3-orbit 8s linear infinite;
+
+  /* au float animations (cascade delays set via style prop) */
+  --animate-au-float-1: au-float-1 22s ease-in-out infinite;
+  --animate-au-float-2: au-float-2 28s ease-in-out infinite;
+  --animate-au-float-3: au-float-3 30s ease-in-out infinite;
+  --animate-au-float-4: au-float-4 26s ease-in-out infinite;
+
+  /* st animations */
+  --animate-st-yarn-swing: st-yarn-swing 5s ease-in-out infinite;
+  --animate-st-yarn-bob: st-yarn-bob 2s ease-in-out infinite;
+  --animate-st-stitch-fade: st-stitch-fade 1.8s ease-in-out infinite;
+  --animate-st-loop-spin: st-loop-spin 12s linear infinite;
+
+  /* Easing */
+  --kd-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes cs-blink {
@@ -52,6 +81,104 @@
 @keyframes cs-marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+/* ── v1 (Hero / landing) animations ── */
+@keyframes v1-draw {
+  from { stroke-dashoffset: 1000; opacity: 0; }
+  to   { stroke-dashoffset: 0;    opacity: 1; }
+}
+
+@keyframes v1-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.08); opacity: 0.7; }
+}
+
+@keyframes v1-fadeup {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v1-line-in {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes v1-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ── v3 (Services / code studio) animations ── */
+@keyframes v3-draw {
+  0%   { stroke-dashoffset: 2000; opacity: 0; }
+  10%  { opacity: 1; }
+  100% { stroke-dashoffset: 0;    opacity: 1; }
+}
+
+@keyframes v3-led {
+  0%, 100% { box-shadow: 0 0 4px 1px currentColor; opacity: 1; }
+  50%       { box-shadow: 0 0 12px 3px currentColor; opacity: 0.6; }
+}
+
+@keyframes v3-rise {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes v3-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes v3-orbit {
+  from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+}
+
+/* ── About / Team (au) float animations ── */
+@keyframes au-float-1 {
+  0%, 100% { transform: translateY(0)   rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(3deg); }
+  66%       { transform: translateY(6px)  rotate(-2deg); }
+}
+
+@keyframes au-float-2 {
+  0%, 100% { transform: translateY(0)    rotate(0deg); }
+  40%       { transform: translateY(-10px) rotate(-4deg); }
+  70%       { transform: translateY(8px)   rotate(2deg); }
+}
+
+@keyframes au-float-3 {
+  0%, 100% { transform: translateY(0)   rotate(0deg); }
+  25%       { transform: translateY(10px) rotate(2deg); }
+  75%       { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes au-float-4 {
+  0%, 100% { transform: translateY(0)    rotate(0deg); }
+  50%       { transform: translateY(-14px) rotate(5deg); }
+}
+
+/* ── Studio / Stitch (st) animations ── */
+@keyframes st-yarn-swing {
+  0%, 100% { transform: rotate(-8deg); transform-origin: top center; }
+  50%       { transform: rotate(8deg);  transform-origin: top center; }
+}
+
+@keyframes st-yarn-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+@keyframes st-stitch-fade {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 1; }
+}
+
+@keyframes st-loop-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* Accessibility utilities */

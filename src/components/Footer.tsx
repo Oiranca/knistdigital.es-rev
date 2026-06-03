@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { routes, nav, footerLegal } from '@/lib/data';
+import { routes, footerLegal } from '@/lib/data';
+import { Icon } from '@/lib/icons';
 import styles from './Footer.module.css';
 
 export function Footer() {
@@ -47,8 +48,9 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="Instagram"
+                  className={styles.socialLink}
                 >
-                  📷
+                  <Icon name="instagram" width={18} height={18} aria-hidden="true" />
                 </a>
               </li>
               <li>
@@ -57,8 +59,9 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label="LinkedIn"
+                  className={styles.socialLink}
                 >
-                  💼
+                  <Icon name="linkedin" width={18} height={18} aria-hidden="true" />
                 </a>
               </li>
             </ul>
