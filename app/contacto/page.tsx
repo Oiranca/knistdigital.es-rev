@@ -203,8 +203,8 @@ function ContactForm({ light }: { light: boolean }) {
         type="submit"
         disabled={submitting}
         aria-disabled={submitting}
-        className={`w-full rounded-full px-6 py-3 font-mono font-bold text-[15px] transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed ${
-          light ? 'bg-kd-black text-kd-white hover:bg-kd-black/80' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
+        className={`w-full rounded px-6 py-3 font-mono font-semibold text-[15px] transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed ${
+          light ? 'bg-kd-lila-deep text-white hover:bg-kd-lila-dark' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
         }`}
       >
         {submitting ? '$ sending…' : <>$ send --message <span className="animate-cs-blink" aria-hidden="true">_</span></>}

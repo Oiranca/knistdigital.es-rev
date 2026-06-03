@@ -101,13 +101,13 @@ function Hero({ isLight }: { isLight: boolean }) {
           <div className="flex flex-wrap gap-3">
             <Link
               href={routes.contacto}
-              className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-6 py-3 font-display font-extrabold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+              className="inline-flex items-center gap-2 rounded bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
             >
               Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
             </Link>
             <Link
               href={routes.servicios}
-              className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 font-display font-extrabold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
+              className={`inline-flex items-center gap-2 rounded border px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
                 isLight
                   ? 'border-black/20 text-[#1a1b1e] hover:border-kd-pistacho-deep hover:text-kd-pistacho-deep'
                   : 'border-white/20 text-cs-fg hover:border-kd-pistacho hover:text-kd-pistacho'
@@ -556,7 +556,7 @@ function CTA({ isLight }: { isLight: boolean }) {
         </p>
         <Link
           href={routes.contacto}
-          className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-8 py-4 font-display font-extrabold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+          className="inline-flex items-center gap-2 rounded bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
           Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
         </Link>
@@ -677,9 +677,9 @@ export default function Home() {
             {/* Desktop CTA */}
             <Link
               href={routes.contacto}
-              className={`hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
+              className={`hidden md:inline-flex items-center gap-2 rounded px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
                 light
-                  ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                  ? 'bg-kd-lila-deep text-white hover:bg-kd-lila-dark'
                   : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
               }`}
             >
@@ -768,9 +768,9 @@ export default function Home() {
             href={routes.contacto}
             onClick={() => setMenuOpen(false)}
             tabIndex={menuOpen ? 0 : -1}
-            className={`mt-4 flex items-center justify-center gap-2 rounded-full px-6 py-3 font-display font-extrabold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
+            className={`mt-4 flex items-center justify-center gap-2 rounded px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
               light
-                ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                ? 'bg-kd-lila-deep text-white hover:bg-kd-lila-dark'
                 : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
             }`}
             style={{

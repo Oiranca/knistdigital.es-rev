@@ -131,7 +131,7 @@ function FreelancerSection({ light }: { light: boolean }) {
               </div>
               <Link
                 href={routes.contacto}
-                className="self-start inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-6 py-3 font-display font-extrabold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+                className="self-start inline-flex items-center gap-2 rounded bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
               >
                 Solicitar presupuesto <span aria-hidden="true">→</span>
               </Link>
@@ -337,7 +337,7 @@ function PreciosCTA({ light }: { light: boolean }) {
         </p>
         <Link
           href={routes.contacto}
-          className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-8 py-4 font-display font-extrabold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+          className="inline-flex items-center gap-2 rounded bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
           Solicitar presupuesto{' '}
           <span className="animate-cs-blink" aria-hidden="true">_</span>
