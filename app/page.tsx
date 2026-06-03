@@ -4,16 +4,18 @@ import { nav, routes, services, manifesto, collaborators } from '@/lib/data';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
-const CODE_LINES = [
-  { i: '01', t: 'function knitsdigital() {' },
-  { i: '02', t: '  // Donde la tecnología, la creatividad' },
-  { i: '03', t: '  // y las personas se entrelazan.' },
-  { i: '04', t: '  return {' },
-  { i: '05', t: "    accesibilidad: 'WCAG 2.2'," },
-  { i: '06', t: "    inclusión: true," },
-  { i: '07', t: "    talento: 'diverso · horizontal'" },
-  { i: '08', t: '  };' },
-  { i: '09', t: '}' },
+type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text'; text: string };
+
+const CODE_LINES: { i: string; parts: CodePart[] }[] = [
+  { i: '01', parts: [{ type: 'keyword', text: 'function' }, { type: 'text', text: ' knitsdigital() {' }] },
+  { i: '02', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// Donde la tecnología, la creatividad' }] },
+  { i: '03', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// y las personas se entrelazan.' }] },
+  { i: '04', parts: [{ type: 'text', text: '  ' }, { type: 'keyword', text: 'return' }, { type: 'text', text: ' {' }] },
+  { i: '05', parts: [{ type: 'text', text: "    accesibilidad: " }, { type: 'string', text: "'WCAG 2.2'," }] },
+  { i: '06', parts: [{ type: 'text', text: '    inclusión: ' }, { type: 'bool', text: 'true' }, { type: 'text', text: ',' }] },
+  { i: '07', parts: [{ type: 'text', text: "    talento: " }, { type: 'string', text: "'diverso · horizontal'" }] },
+  { i: '08', parts: [{ type: 'text', text: '  };' }] },
+  { i: '09', parts: [{ type: 'text', text: '}' }] },
 ];
 
 function Hero({ isLight }: { isLight: boolean }) {
@@ -138,7 +140,25 @@ function Hero({ isLight }: { isLight: boolean }) {
                 <span className={`w-6 select-none text-right ${isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>
                   {l.i}
                 </span>
-                <span className="whitespace-pre">{l.t}</span>
+                <span className="whitespace-pre">
+                  {l.parts.map((part, idx) => {
+                    const colorClass =
+                      part.type === 'keyword'
+                        ? 'text-[#c586c0]'
+                        : part.type === 'comment'
+                        ? 'text-[#6a9955]'
+                        : part.type === 'string'
+                        ? 'text-[#01c095]'
+                        : part.type === 'bool'
+                        ? 'text-[#569cd6]'
+                        : '';
+                    return (
+                      <span key={idx} className={colorClass}>
+                        {part.text}
+                      </span>
+                    );
+                  })}
+                </span>
               </code>
             ))}
             {lineCount < CODE_LINES.length && (
@@ -280,11 +300,21 @@ function Services({ isLight }: { isLight: boolean }) {
                   <code>
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>01</span>
                     {' '}
-                    <span>{`export const ${s.tag} = () => {`}</span>
+                    <span className="text-[#c586c0]">export const</span>
+                    <span>{` ${s.tag} `}</span>
+                    <span className="text-[#c586c0]">=</span>
+                    <span>{` () `}</span>
+                    <span className="text-[#c586c0]">{'=>'}</span>
+                    <span>{` {`}</span>
                     {'\n'}
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>02</span>
                     {' '}
-                    <span>{`  return { accesible: true, impacto: 'real' };`}</span>
+                    <span className="text-[#c586c0]">return</span>
+                    <span>{` { accesible: `}</span>
+                    <span className="text-[#569cd6]">true</span>
+                    <span>{`, impacto: `}</span>
+                    <span className="text-[#01c095]">'real'</span>
+                    <span>{` };`}</span>
                     {'\n'}
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>03</span>
                     {' '}
