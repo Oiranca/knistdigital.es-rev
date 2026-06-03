@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${nunito.variable} ${redHatDisplay.variable} ${jetbrainsMono.variable}`}>
+    <html lang="es" data-scroll-behavior="smooth" className={`${nunito.variable} ${redHatDisplay.variable} ${jetbrainsMono.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

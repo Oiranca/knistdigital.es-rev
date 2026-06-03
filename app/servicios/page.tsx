@@ -94,7 +94,7 @@ export default function ServiciosPage() {
         <section className="px-8 py-20" aria-labelledby="servicios-title">
           <div className="mx-auto max-w-[1320px]">
             <header className="mb-12 flex flex-col gap-2">
-              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-[#6a9955]' : 'text-kd-pistacho'}`}>
+              <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
                 {'/* servicios */'}
               </span>
               <h1
@@ -118,7 +118,7 @@ export default function ServiciosPage() {
                   }`}
                 >
                   <header className="flex flex-col gap-1">
-                    <span className="font-mono text-sm text-[#6a9955]">{`// ${service.tag}.module`}</span>
+                    <span className="font-mono text-sm text-syn-comment">{`// ${service.tag}.module`}</span>
                     <h2 className={`m-0 font-display font-black text-2xl tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
                       {service.title}
                     </h2>

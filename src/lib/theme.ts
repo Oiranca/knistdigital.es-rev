@@ -1,18 +1,24 @@
 /**
  * Shared theme persistence helpers.
+ *
  * Storage key: 'kd-dark'
- *   '1' → dark mode
- *   '0' → light mode
- *   absent → follow system preference
+ * The key name reflects the stored value, not the React state variable name.
+ *
+ *   Stored '1' → user chose dark mode  → isLight = false
+ *   Stored '0' → user chose light mode → isLight = true
+ *   Key absent  → follow system preference (prefers-color-scheme)
+ *
+ * Note: `isLight` (boolean) is the runtime state.
+ *       The storage key 'kd-dark' stores the inverse: '1' = dark, '0' = light.
  */
 export const THEME_KEY = 'kd-dark';
 
 export function getStoredTheme(): boolean | null {
   if (typeof window === 'undefined') return null;
   const stored = localStorage.getItem(THEME_KEY);
-  if (stored === '1') return false; // dark → isLight = false
-  if (stored === '0') return true;  // light → isLight = true
-  return null; // fallback to system
+  if (stored === '1') return false; // stored 'dark' → isLight = false
+  if (stored === '0') return true;  // stored 'light' → isLight = true
+  return null; // no preference stored — fall back to system
 }
 
 export function saveTheme(isLight: boolean): void {
