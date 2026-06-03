@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Nunito, Red_Hat_Display, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import './variants.css';
 
 const nunito = Nunito({
   variable: '--kd-body',

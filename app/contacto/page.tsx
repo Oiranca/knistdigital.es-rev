@@ -9,9 +9,9 @@ export default function ContactoPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("knits-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldBeLight = saved ? saved === "light" : !prefersDark;
+    const saved = localStorage.getItem('knits-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeLight = saved ? saved === 'light' : !prefersDark;
     setIsLight(shouldBeLight);
     setMounted(true);
   }, []);
@@ -19,105 +19,185 @@ export default function ContactoPage() {
   const toggle = () => {
     const newVal = !isLight;
     setIsLight(newVal);
-    localStorage.setItem("knits-theme", newVal ? "light" : "dark");
+    localStorage.setItem('knits-theme', newVal ? 'light' : 'dark');
   };
 
-  const rootClass = `v3-root var-cs${mounted && isLight ? " is-light" : ""}`;
+  const light = mounted && isLight;
 
   return (
-    <div className={rootClass}>
-      <header className="v3-nav" role="banner">
-        <a href="#main" className="v3-skip">Saltar al contenido</a>
-        <div className="v3-nav-inner">
-          <Link href="/" className="v3-nav-logo" aria-label="KnitsDigital — Inicio">
+    <div
+      className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
+      style={{
+        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        color: light ? '#1a1b1e' : '#e4e5eb',
+      }}
+    >
+      <header
+        className={`sticky top-0 z-50 border-b ${
+          light
+            ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
+            : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
+        }`}
+        role="banner"
+      >
+        <a href="#main" className="skip-link">Saltar al contenido</a>
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-8 px-8 py-4">
+          <Link href="/" className="inline-flex items-center gap-3 no-underline" aria-label="KnitsDigital — Inicio">
             <img src="/assets/isotype.png" alt="" width={32} height={32} />
-            <span>knitsdigital</span>
+            <span className={`font-mono text-lg font-bold tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+              knitsdigital
+            </span>
           </Link>
-          <nav aria-label="Navegación principal" className="v3-nav-menu">
-            <Link href={routes.servicios} className="v3-nav-link">
-              <span className="v3-nav-spark" aria-hidden="true">✧</span>
-              Servicios
-            </Link>
-            <Link href={routes.equipo} className="v3-nav-link">
-              <span className="v3-nav-spark" aria-hidden="true">✧</span>
-              Equipo
-            </Link>
-            <Link href={routes.precios} className="v3-nav-link">
-              <span className="v3-nav-spark" aria-hidden="true">✧</span>
-              Precios
-            </Link>
+          <nav aria-label="Navegación principal" className="hidden items-center gap-1 md:flex">
+            {[
+              { href: routes.servicios, label: 'Servicios' },
+              { href: routes.equipo, label: 'Equipo' },
+              { href: routes.precios, label: 'Precios' },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`inline-flex items-center gap-1.5 rounded-full border border-transparent px-4 py-2 font-mono text-[13px] font-bold no-underline transition-colors hover:border-kd-pistacho hover:text-kd-pistacho ${
+                  light ? 'text-[#1a1b1e]' : 'text-cs-fg'
+                }`}
+              >
+                <span className="text-[10px] text-kd-pistacho opacity-70" aria-hidden="true">✧</span>
+                {item.label}
+              </Link>
+            ))}
           </nav>
-          <div className="v3-nav-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={toggle}
-              className="v3-nav-link"
               aria-label={isLight ? 'Modo oscuro' : 'Modo claro'}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', color: 'inherit' }}
+              className={`inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent transition-colors ${
+                light ? 'border-black/15 text-[#1a1b1e] hover:bg-black/5' : 'border-white/10 text-cs-fg hover:bg-white/8'
+              }`}
             >
               {mounted ? (isLight ? '☀️' : '🌙') : '🌙'}
             </button>
-            <a href="mailto:hola@knitsdigital.es" className="v3-cta">
-              Email <span className="v3-cta-arrow" aria-hidden="true">→</span>
+            <a
+              href="mailto:hola@knitsdigital.es"
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all ${
+                light ? 'bg-kd-black text-kd-white hover:bg-kd-black/80' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
+              }`}
+            >
+              Email <span aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       </header>
 
       <main id="main" tabIndex={-1}>
-        <section className="cs-cta" aria-labelledby="contacto-title" style={{ marginTop: '4rem' }}>
-          <div className="cs-cta-inner">
-            <span className="cs-tag">/* contacto */</span>
-            <h1 id="contacto-title">Empecemos a tejer juntas</h1>
-            <p style={{ marginBottom: '2rem' }}>Una conversación es el primer commit. Te respondemos en menos de 48h.</p>
+        <section className="px-8 py-20" aria-labelledby="contacto-title">
+          <div className="mx-auto max-w-[1320px] text-center">
+            <span className={`font-mono text-xs uppercase tracking-widest ${light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'}`}>
+              {'/* contacto */'}
+            </span>
+            <h1
+              id="contacto-title"
+              className={`mb-4 mt-4 font-display font-black leading-tight tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
+              style={{ fontSize: 'clamp(32px, 5vw, 64px)' }}
+            >
+              Empecemos a tejer juntas
+            </h1>
+            <p className={`mb-8 max-w-[48ch] mx-auto ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Una conversación es el primer commit. Te respondemos en menos de 48h.
+            </p>
 
-            <div style={{ display: 'grid', gap: '2rem', maxWidth: '500px', margin: '0 auto', padding: '2rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', borderRadius: 'var(--cs-radius, 8px)' }}>
-              <div>
-                <label htmlFor="name" style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', opacity: 0.7 }}>Nombre</label>
-                <input
-                  id="name"
-                  type="text"
-                  placeholder="Tu nombre"
-                  style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', color: 'inherit', fontFamily: 'inherit' }}
-                />
+            <div
+              className={`mx-auto max-w-[500px] rounded-xl border p-8 text-left ${
+                light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'
+              }`}
+            >
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="name"
+                    className={`font-mono text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}
+                  >
+                    Nombre
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    placeholder="Tu nombre"
+                    className={`w-full rounded-md border px-3 py-2.5 font-body text-base outline-none transition-colors focus:border-kd-pistacho ${
+                      light
+                        ? 'border-black/10 bg-[#f5f5f7] text-[#1a1b1e] placeholder:text-[#6e6f75]'
+                        : 'border-cs-line bg-cs-bg text-cs-fg placeholder:text-cs-fg-soft'
+                    }`}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="email"
+                    className={`font-mono text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="tu@email.com"
+                    className={`w-full rounded-md border px-3 py-2.5 font-body text-base outline-none transition-colors focus:border-kd-pistacho ${
+                      light
+                        ? 'border-black/10 bg-[#f5f5f7] text-[#1a1b1e] placeholder:text-[#6e6f75]'
+                        : 'border-cs-line bg-cs-bg text-cs-fg placeholder:text-cs-fg-soft'
+                    }`}
+                  />
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    htmlFor="project"
+                    className={`font-mono text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}
+                  >
+                    ¿Cuál es tu proyecto?
+                  </label>
+                  <textarea
+                    id="project"
+                    placeholder="Cuéntanos sobre tu idea..."
+                    rows={5}
+                    className={`w-full resize-y rounded-md border px-3 py-2.5 font-body text-base leading-relaxed outline-none transition-colors focus:border-kd-pistacho ${
+                      light
+                        ? 'border-black/10 bg-[#f5f5f7] text-[#1a1b1e] placeholder:text-[#6e6f75]'
+                        : 'border-cs-line bg-cs-bg text-cs-fg placeholder:text-cs-fg-soft'
+                    }`}
+                  />
+                </div>
+
+                <a
+                  href="mailto:hola@knitsdigital.es?subject=Propuesta%20de%20proyecto&body=Nombre:%20%0A%0AProyecto:%20"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-kd-pistacho px-6 py-3 font-display font-extrabold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+                >
+                  Enviar propuesta <span aria-hidden="true">_</span>
+                </a>
               </div>
-
-              <div>
-                <label htmlFor="email" style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', opacity: 0.7 }}>Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', color: 'inherit', fontFamily: 'inherit' }}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="project" style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', opacity: 0.7 }}>¿Cuál es tu proyecto?</label>
-                <textarea
-                  id="project"
-                  placeholder="Cuéntanos sobre tu idea..."
-                  rows={5}
-                  style={{ width: '100%', padding: '0.75rem', backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: '4px', color: 'inherit', fontFamily: 'inherit', resize: 'vertical' }}
-                />
-              </div>
-
-              <a
-                href="mailto:hola@knitsdigital.es?subject=Propuesta%20de%20proyecto&body=Nombre:%20%0A%0AProyecto:%20"
-                className="cs-btn cs-btn-primary"
-                style={{ textAlign: 'center' }}
-              >
-                Enviar propuesta <span className="cs-cursor">_</span>
-              </a>
             </div>
 
-            <p style={{ marginTop: '2rem', textAlign: 'center', opacity: 0.7 }}>O directo por email: <a href="mailto:hola@knitsdigital.es" style={{ color: 'inherit', textDecoration: 'underline' }}>hola@knitsdigital.es</a></p>
+            <p className={`mt-8 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              O directo por email:{' '}
+              <a
+                href="mailto:hola@knitsdigital.es"
+                className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
+              >
+                hola@knitsdigital.es
+              </a>
+            </p>
           </div>
         </section>
       </main>
 
-      <footer className="v3-footer" role="contentinfo">
-        <div>KnitsDigital © {new Date().getFullYear()}</div>
+      <footer
+        className={`border-t px-8 py-6 text-center font-mono text-sm ${
+          light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'
+        }`}
+        role="contentinfo"
+      >
+        KnitsDigital © {new Date().getFullYear()}
       </footer>
     </div>
   );

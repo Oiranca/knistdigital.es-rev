@@ -9,9 +9,9 @@ export default function PrivacidadPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("knits-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldBeLight = saved ? saved === "light" : !prefersDark;
+    const saved = localStorage.getItem('knits-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const shouldBeLight = saved ? saved === 'light' : !prefersDark;
     setIsLight(shouldBeLight);
     setMounted(true);
   }, []);
@@ -19,87 +19,139 @@ export default function PrivacidadPage() {
   const toggle = () => {
     const newVal = !isLight;
     setIsLight(newVal);
-    localStorage.setItem("knits-theme", newVal ? "light" : "dark");
+    localStorage.setItem('knits-theme', newVal ? 'light' : 'dark');
   };
 
-  const rootClass = `v3-root var-cs${mounted && isLight ? " is-light" : ""}`;
+  const light = mounted && isLight;
 
   return (
-    <div className={rootClass}>
-      <header className="v3-nav" role="banner">
-        <a href="#main" className="v3-skip">Saltar al contenido</a>
-        <div className="v3-nav-inner">
-          <Link href="/" className="v3-nav-logo" aria-label="KnitsDigital — Inicio">
+    <div
+      className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
+      style={{
+        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        color: light ? '#1a1b1e' : '#e4e5eb',
+      }}
+    >
+      <header
+        className={`sticky top-0 z-50 border-b ${
+          light
+            ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
+            : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
+        }`}
+        role="banner"
+      >
+        <a href="#main" className="skip-link">Saltar al contenido</a>
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-8 px-8 py-4">
+          <Link href="/" className="inline-flex items-center gap-3 no-underline" aria-label="KnitsDigital — Inicio">
             <img src="/assets/isotype.png" alt="" width={32} height={32} />
-            <span>knitsdigital</span>
+            <span className={`font-mono text-lg font-bold tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+              knitsdigital
+            </span>
           </Link>
-          <nav aria-label="Navegación principal" className="v3-nav-menu">
-            <Link href={routes.servicios} className="v3-nav-link">
-              <span className="v3-nav-spark" aria-hidden="true">✧</span>
+          <nav aria-label="Navegación principal" className="hidden items-center gap-1 md:flex">
+            <Link
+              href={routes.servicios}
+              className={`inline-flex items-center gap-1.5 rounded-full border border-transparent px-4 py-2 font-mono text-[13px] font-bold no-underline transition-colors hover:border-kd-pistacho hover:text-kd-pistacho ${
+                light ? 'text-[#1a1b1e]' : 'text-cs-fg'
+              }`}
+            >
+              <span className="text-[10px] text-kd-pistacho opacity-70" aria-hidden="true">✧</span>
               Servicios
             </Link>
           </nav>
-          <div className="v3-nav-actions" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div className="flex items-center gap-4">
             <button
               type="button"
               onClick={toggle}
-              className="v3-nav-link"
               aria-label={isLight ? 'Modo oscuro' : 'Modo claro'}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.5rem', display: 'flex', alignItems: 'center', color: 'inherit' }}
+              className={`inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent transition-colors ${
+                light ? 'border-black/15 text-[#1a1b1e] hover:bg-black/5' : 'border-white/10 text-cs-fg hover:bg-white/8'
+              }`}
             >
               {mounted ? (isLight ? '☀️' : '🌙') : '🌙'}
             </button>
-            <Link href={routes.contacto} className="v3-cta">
-              Contactar <span className="v3-cta-arrow" aria-hidden="true">→</span>
+            <Link
+              href={routes.contacto}
+              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all ${
+                light ? 'bg-kd-black text-kd-white hover:bg-kd-black/80' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
+              }`}
+            >
+              Contactar <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
       </header>
 
-      <main id="main" tabIndex={-1} style={{ maxWidth: '1000px', margin: '0 auto', padding: '4rem 2rem' }}>
-        <article>
-          <h1>Política de Privacidad</h1>
-          <p style={{ opacity: 0.7, marginBottom: '2rem' }}>Última actualización: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      <main id="main" tabIndex={-1} className="mx-auto max-w-[1000px] px-8 py-16">
+        <article className={`flex flex-col gap-6 ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+          <h1 className="m-0 font-display font-black text-4xl tracking-tight">
+            Política de Privacidad
+          </h1>
+          <p className={`m-0 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+            Última actualización:{' '}
+            {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
 
-          <section style={{ marginBottom: '2rem' }}>
-            <h2>1. Responsable del tratamiento</h2>
-            <p>KnitsDigital, especialista en producto digital accesible, es responsable del tratamiento de tus datos personales.</p>
+          <section className="flex flex-col gap-2">
+            <h2 className="m-0 font-display font-bold text-xl">1. Responsable del tratamiento</h2>
+            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              KnitsDigital, especialista en producto digital accesible, es responsable del tratamiento de tus datos personales.
+            </p>
           </section>
 
-          <section style={{ marginBottom: '2rem' }}>
-            <h2>2. Datos que recopilamos</h2>
-            <p>Recopilamos información que nos proporcionas voluntariamente a través de formularios de contacto, incluyendo:</p>
-            <ul style={{ marginLeft: '1.5rem' }}>
+          <section className="flex flex-col gap-2">
+            <h2 className="m-0 font-display font-bold text-xl">2. Datos que recopilamos</h2>
+            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Recopilamos información que nos proporcionas voluntariamente a través de formularios de contacto, incluyendo:
+            </p>
+            <ul className={`m-0 flex list-disc flex-col gap-1 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
               <li>Nombre</li>
               <li>Correo electrónico</li>
               <li>Información sobre tu proyecto</li>
             </ul>
           </section>
 
-          <section style={{ marginBottom: '2rem' }}>
-            <h2>3. Uso de los datos</h2>
-            <p>Utilizamos tus datos únicamente para:</p>
-            <ul style={{ marginLeft: '1.5rem' }}>
+          <section className="flex flex-col gap-2">
+            <h2 className="m-0 font-display font-bold text-xl">3. Uso de los datos</h2>
+            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Utilizamos tus datos únicamente para:
+            </p>
+            <ul className={`m-0 flex list-disc flex-col gap-1 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
               <li>Responder a tu solicitud o propuesta</li>
               <li>Comunicación sobre proyectos</li>
               <li>Mejora de nuestros servicios</li>
             </ul>
           </section>
 
-          <section style={{ marginBottom: '2rem' }}>
-            <h2>4. Tus derechos</h2>
-            <p>Tienes derecho a acceder, rectificar o eliminar tus datos. Contáctanos en hola@knitsdigital.es</p>
+          <section className="flex flex-col gap-2">
+            <h2 className="m-0 font-display font-bold text-xl">4. Tus derechos</h2>
+            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Tienes derecho a acceder, rectificar o eliminar tus datos. Contáctanos en hola@knitsdigital.es
+            </p>
           </section>
 
-          <section>
-            <h2>5. Contacto</h2>
-            <p>Para preguntas sobre privacidad: <a href="mailto:hola@knitsdigital.es">hola@knitsdigital.es</a></p>
+          <section className="flex flex-col gap-2">
+            <h2 className="m-0 font-display font-bold text-xl">5. Contacto</h2>
+            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Para preguntas sobre privacidad:{' '}
+              <a
+                href="mailto:hola@knitsdigital.es"
+                className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
+              >
+                hola@knitsdigital.es
+              </a>
+            </p>
           </section>
         </article>
       </main>
 
-      <footer className="v3-footer" role="contentinfo">
-        <div>KnitsDigital © {new Date().getFullYear()}</div>
+      <footer
+        className={`border-t px-8 py-6 text-center font-mono text-sm ${
+          light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'
+        }`}
+        role="contentinfo"
+      >
+        KnitsDigital © {new Date().getFullYear()}
       </footer>
     </div>
   );
