@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 import { Icon } from '@/lib/icons';
 import { resolveInitialTheme, saveTheme } from '@/lib/theme';
 
-type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text'; text: string };
+type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text' | 'fn'; text: string };
 
 const CODE_LINES: { i: string; parts: CodePart[] }[] = [
-  { i: '01', parts: [{ type: 'keyword', text: 'function' }, { type: 'text', text: ' knitsdigital() {' }] },
+  { i: '01', parts: [{ type: 'keyword', text: 'function' }, { type: 'text', text: ' ' }, { type: 'fn', text: 'knitsdigital' }, { type: 'text', text: '() {' }] },
   { i: '02', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// Donde la tecnología, la creatividad' }] },
   { i: '03', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// y las personas se entrelazan.' }] },
   { i: '04', parts: [{ type: 'text', text: '  ' }, { type: 'keyword', text: 'return' }, { type: 'text', text: ' {' }] },
@@ -22,8 +22,12 @@ const CODE_LINES: { i: string; parts: CodePart[] }[] = [
 
 function Hero({ isLight }: { isLight: boolean }) {
   const [lineCount, setLineCount] = useState(0);
+  const [prefersReduced, setPrefersReduced] = useState(false);
 
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(mq.matches);
+    if (mq.matches) { setLineCount(CODE_LINES.length); return; }
     let i = 0;
     const id = setInterval(() => {
       i++;
@@ -38,6 +42,21 @@ function Hero({ isLight }: { isLight: boolean }) {
       className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-8 py-16 pb-24"
       aria-labelledby="hero-title"
     >
+      {/* Radial glow background */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 60% 50% at 30% 20%, rgba(210,233,104,0.08) 0%, transparent 70%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(1,192,149,0.08) 0%, transparent 70%)',
+          }}
+        />
+      </div>
       <div className="relative z-10 mx-auto grid w-full max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
         {/* Text column */}
         <div className="flex flex-col gap-6">
@@ -153,6 +172,8 @@ function Hero({ isLight }: { isLight: boolean }) {
                         ? 'text-kd-pistacho'
                         : part.type === 'bool'
                         ? 'text-syn-bool'
+                        : part.type === 'fn'
+                        ? 'text-kd-turquesa'
                         : '';
                     return (
                       <span key={idx} className={colorClass}>
@@ -184,7 +205,7 @@ function Services({ isLight }: { isLight: boolean }) {
       aria-labelledby="services-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* servicios */'}
         </span>
         <h2
@@ -283,7 +304,11 @@ function Services({ isLight }: { isLight: boolean }) {
                 <span className="font-mono text-sm text-syn-comment">{`// ${s.tag}.module`}</span>
                 <h3
                   className={`m-0 font-display font-black text-2xl tracking-tight ${
-                    isLight ? 'text-[#1a1b1e]' : 'text-cs-fg'
+                    s.color === 'lila'
+                      ? isLight ? 'text-kd-lila-deep' : 'text-kd-lila'
+                      : s.color === 'turquesa'
+                      ? isLight ? 'text-kd-turquesa-deep' : 'text-kd-turquesa'
+                      : isLight ? 'text-kd-pistacho-deep' : 'text-kd-pistacho'
                   }`}
                 >
                   {s.title}
@@ -350,7 +375,7 @@ function Manifesto({ isLight }: { isLight: boolean }) {
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* manifest */'}
         </span>
         <h2
@@ -413,7 +438,16 @@ function Manifesto({ isLight }: { isLight: boolean }) {
 
 function Collab({ isLight }: { isLight: boolean }) {
   const [paused, setPaused] = useState(false);
+  const [prefersReduced, setPrefersReduced] = useState(false);
   const list = [...collaborators, ...collaborators];
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(mq.matches);
+    const fn = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  }, []);
 
   return (
     <section
@@ -422,7 +456,7 @@ function Collab({ isLight }: { isLight: boolean }) {
       aria-labelledby="collab-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* clientes */'}
         </span>
         <h2
@@ -444,7 +478,7 @@ function Collab({ isLight }: { isLight: boolean }) {
           }`}
         >
           <ul
-            className={`marquee-track ${paused ? 'is-paused' : ''} m-0 list-none items-center p-4`}
+            className={`marquee-track ${(paused || prefersReduced) ? 'is-paused' : ''} m-0 list-none items-center p-4`}
             role="list"
             aria-label="Logos de clientes"
           >
@@ -492,15 +526,21 @@ function Collab({ isLight }: { isLight: boolean }) {
 function CTA({ isLight }: { isLight: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'}`}
+      className={`relative overflow-hidden px-8 py-24 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'}`}
       aria-labelledby="cta-title"
     >
+      {/* Glow radial */}
       <div
-        className={`mx-auto max-w-[900px] rounded-xl border p-12 text-center ${
-          isLight ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'
-        }`}
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(210,233,104,0.16) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="relative mx-auto max-w-[900px] text-center"
       >
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* contacto */'}
         </span>
         <h2
@@ -529,10 +569,17 @@ export default function Home() {
   const [isLight, setIsLight] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setIsLight(resolveInitialTheme());
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggle = () => {
@@ -569,10 +616,14 @@ export default function Home() {
     >
       {/* NAV */}
       <header
-        className={`sticky top-0 z-50 border-b ${
-          light
-            ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
-            : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
+        className={`sticky top-0 z-50 transition-all duration-200 ${
+          scrolled
+            ? light
+              ? 'border-b border-black/10 bg-[#f5f5f7]/95 backdrop-blur-xl shadow-sm'
+              : 'border-b border-white/8 bg-cs-bg/95 backdrop-blur-xl shadow-sm'
+            : light
+            ? 'border-b border-transparent bg-[#f5f5f7]/90 backdrop-blur-sm'
+            : 'border-b border-transparent bg-transparent'
         }`}
         role="banner"
       >

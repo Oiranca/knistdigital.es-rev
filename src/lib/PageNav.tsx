@@ -15,7 +15,14 @@ interface PageNavProps {
 export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const light = mounted && isLight;
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -31,10 +38,14 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b ${
-        light
-          ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
-          : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
+      className={`sticky top-0 z-50 transition-all duration-200 ${
+        scrolled
+          ? light
+            ? 'border-b border-black/10 bg-[#f5f5f7]/95 backdrop-blur-xl shadow-sm'
+            : 'border-b border-white/8 bg-cs-bg/95 backdrop-blur-xl shadow-sm'
+          : light
+          ? 'border-b border-transparent bg-[#f5f5f7]/90 backdrop-blur-sm'
+          : 'border-b border-transparent bg-transparent'
       }`}
       role="banner"
     >
