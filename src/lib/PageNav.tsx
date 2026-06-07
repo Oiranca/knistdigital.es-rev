@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon } from './icons';
 import { nav, routes } from './data';
 
@@ -16,17 +16,24 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
   const light = mounted && isLight;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        burgerRef.current?.focus();
+      }
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [menuOpen]);
@@ -116,6 +123,7 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
 
           {/* Burger */}
           <button
+            ref={burgerRef}
             type="button"
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             aria-expanded={menuOpen}
@@ -162,6 +170,7 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
         <button
           type="button"
           aria-label="Cerrar menú"
+          tabIndex={menuOpen ? 0 : -1}
           onClick={() => setMenuOpen(false)}
           className={`self-end inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent mb-4 transition-colors ${
             light

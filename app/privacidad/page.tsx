@@ -136,7 +136,7 @@ export default function PrivacidadPage() {
                 <a
                   href="https://www.aepd.es"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
                 >
                   Agencia Española de Protección de Datos

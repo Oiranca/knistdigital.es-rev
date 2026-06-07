@@ -2,7 +2,7 @@
 
 import { nav, routes, services, manifesto, collaborators, footerLegal } from '@/lib/data';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/lib/icons';
 import { resolveInitialTheme, saveTheme } from '@/lib/theme';
 
@@ -22,11 +22,8 @@ const CODE_LINES: { i: string; parts: CodePart[] }[] = [
 
 function Hero({ isLight }: { isLight: boolean }) {
   const [lineCount, setLineCount] = useState(0);
-  const [prefersReduced, setPrefersReduced] = useState(false);
-
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReduced(mq.matches);
     if (mq.matches) { setLineCount(CODE_LINES.length); return; }
     let i = 0;
     const id = setInterval(() => {
@@ -487,7 +484,7 @@ function Collab({ isLight }: { isLight: boolean }) {
                 <a
                   href={c.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label={c.alt}
                   tabIndex={i >= collaborators.length ? -1 : 0}
                   aria-hidden={i >= collaborators.length}
@@ -570,6 +567,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsLight(resolveInitialTheme());
@@ -578,23 +576,29 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggle = () => {
-    const newVal = !isLight;
-    setIsLight(newVal);
-    saveTheme(newVal);
+    setIsLight(prev => {
+      const newVal = !prev;
+      saveTheme(newVal);
+      return newVal;
+    });
   };
 
   const light = mounted && isLight;
 
-  // Close menu on Escape
+  // Close menu on Escape — restore focus to burger button
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMenuOpen(false);
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        burgerRef.current?.focus();
+      }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -688,6 +692,7 @@ export default function Home() {
 
             {/* Burger — mobile only */}
             <button
+              ref={burgerRef}
               type="button"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
@@ -734,6 +739,7 @@ export default function Home() {
           <button
             type="button"
             aria-label="Cerrar menú"
+            tabIndex={menuOpen ? 0 : -1}
             onClick={() => setMenuOpen(false)}
             className={`self-end inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent mb-4 transition-colors ${
               light
@@ -839,10 +845,10 @@ export default function Home() {
             <div>
               <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Síguenos</h3>
               <div className="flex gap-4">
-                <a href="https://instagram.com/knitsdigital" target="_blank" rel="noreferrer" aria-label="Instagram de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                <a href="https://instagram.com/knitsdigital" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
                   <Icon name="instagram" width={20} height={20} aria-hidden="true" />
                 </a>
-                <a href="https://linkedin.com/company/knitsdigital" target="_blank" rel="noreferrer" aria-label="LinkedIn de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                <a href="https://linkedin.com/company/knitsdigital" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
                   <Icon name="linkedin" width={20} height={20} aria-hidden="true" />
                 </a>
               </div>

@@ -75,7 +75,7 @@ export function PageFooter({ isLight: light }: PageFooterProps) {
               <a
                 href="https://instagram.com/knitsdigital"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="Instagram de KnitsDigital"
                 className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}
               >
@@ -84,7 +84,7 @@ export function PageFooter({ isLight: light }: PageFooterProps) {
               <a
                 href="https://linkedin.com/company/knitsdigital"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn de KnitsDigital"
                 className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}
               >

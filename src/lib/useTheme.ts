@@ -12,9 +12,11 @@ export function useTheme() {
   }, []);
 
   const toggle = () => {
-    const newVal = !isLight;
-    setIsLight(newVal);
-    saveTheme(newVal);
+    setIsLight(prev => {
+      const newVal = !prev;
+      saveTheme(newVal);
+      return newVal;
+    });
   };
 
   const light = mounted && isLight;
