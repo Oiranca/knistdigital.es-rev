@@ -1,27 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { routes } from '@/lib/data';
-import { Icon } from '@/lib/icons';
-import { resolveInitialTheme, saveTheme } from '@/lib/theme';
+import { PageNav } from '@/lib/PageNav';
+import { PageFooter } from '@/lib/PageFooter';
+import { useTheme } from '@/lib/useTheme';
 
 export default function PrivacidadPage() {
-  const [isLight, setIsLight] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setIsLight(resolveInitialTheme());
-    setMounted(true);
-  }, []);
-
-  const toggle = () => {
-    const newVal = !isLight;
-    setIsLight(newVal);
-    saveTheme(newVal);
-  };
-
-  const light = mounted && isLight;
+  const { isLight, light, mounted, toggle } = useTheme();
 
   return (
     <div
@@ -31,130 +17,136 @@ export default function PrivacidadPage() {
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >
-      <header
-        className={`sticky top-0 z-50 border-b ${
-          light
-            ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
-            : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
-        }`}
-        role="banner"
-      >
-        <a href="#main" className="skip-link">Saltar al contenido</a>
-        <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-8 px-8 py-4">
-          <Link href="/" className="inline-flex items-center gap-3 no-underline" aria-label="KnitsDigital — Inicio">
-            <img src="/assets/isotype.png" alt="" width={32} height={32} />
-            <span className={`font-mono text-lg font-bold tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
-              knitsdigital
-            </span>
-          </Link>
-          <nav aria-label="Navegación principal" className="hidden items-center gap-1 md:flex">
-            <Link
-              href={routes.servicios}
-              className={`inline-flex items-center gap-1.5 rounded-full border border-transparent px-4 py-2 font-mono text-[13px] font-bold no-underline transition-colors hover:border-kd-pistacho hover:text-kd-pistacho ${
-                light ? 'text-[#1a1b1e]' : 'text-cs-fg'
-              }`}
-            >
-              <span className="text-[10px] text-kd-pistacho opacity-70" aria-hidden="true">✧</span>
-              Servicios
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={toggle}
-              aria-label={isLight ? 'Modo oscuro' : 'Modo claro'}
-              className={`inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent transition-colors ${
-                light ? 'border-black/15 text-[#1a1b1e] hover:bg-black/5' : 'border-white/10 text-cs-fg hover:bg-white/8'
-              }`}
-            >
-              {mounted
-                ? <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
-                : <Icon name="moon" width={18} height={18} aria-hidden="true" />
-              }
-            </button>
-            <Link
-              href={routes.contacto}
-              className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all ${
-                light ? 'bg-kd-black text-kd-white hover:bg-kd-black/80' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
-              }`}
-            >
-              Contactar <span aria-hidden="true">→</span>
-            </Link>
+      <PageNav isLight={isLight} mounted={mounted} toggle={toggle} />
+      <main id="main" tabIndex={-1} className="px-8 py-16">
+        <div className="mx-auto max-w-[860px]">
+          {/* Doc header */}
+          <div className={`mb-6 rounded-t-lg border-b px-4 py-2 font-mono text-xs ${light ? 'border-black/10 bg-[#ebebed] text-[#6e6f75]' : 'border-cs-line bg-cs-bg-2 text-cs-fg-soft'}`}>
+            README.md · /privacidad
           </div>
+
+          <article className={`flex flex-col gap-6 ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+            <h1 className="m-0 font-display font-black text-4xl tracking-tight">
+              Página de privacidad
+            </h1>
+
+            <h2 className="m-0 mt-4 font-display font-bold text-2xl tracking-tight">
+              POLÍTICA DE PRIVACIDAD Y AVISO LEGAL
+            </h2>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Información del titular de la web</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                AUJ2023, S.L. CIF/NIF B19785633 con domicilio en C/ JULIO CORTAZAR, 8, PARLA (MADRID), 28981, y mail de comunicaciones{' '}
+                <a href="mailto:info@knitsdigital.com" className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}>
+                  info@knitsdigital.com
+                </a>.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Responsable de protección de datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                El titular es el responsable de los datos personales que son recabados por la navegación y uso de esta web conforme a los requisitos establecidos por el REGLAMENTO (UE) 2016/679 relativo a la protección de datos de las personas físicas así como conforme a la Ley 34/2002 de 11 de julio de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE).
+              </p>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Al utilizar este sitio web entendemos que ha leído y comprendido la información que se expone en relación con el tratamiento de sus datos de carácter personal.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Política de protección de datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                El responsable aplica el principio de responsabilidad activa en el tratamiento de los datos de carácter personal, garantizando en todo caso:
+              </p>
+              <ul className={`m-0 flex list-disc flex-col gap-2 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                <li>El respeto a las libertades y los derechos fundamentales de las personas físicas</li>
+                <li>Que los datos son tratados de manera lícita, leal y transparente</li>
+                <li>Que los datos tratados son exactos, adecuados, pertinentes y limitados en relación con los fines para los que son recogidos</li>
+                <li>Que los fines para los que son recogidos son explícitos y legítimos y que no son tratados de manera incompatible con dichos fines</li>
+              </ul>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Datos recabados, finalidad y licitud</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Los datos de carácter personal tratados son los aportados por los usuarios a través de los formularios disponibles en este sitio web y son los mínimos exigibles para poder:
+              </p>
+              <ul className={`m-0 flex list-disc flex-col gap-2 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                <li>Enviarle información sobre nuestros productos / servicios</li>
+                <li>Atender consultas</li>
+                <li>Tramitar pedidos, elaborar facturas correspondientes, informar sobre el estado de los pedidos, atender reclamaciones y cualquier otra gestión derivada de la prestación del servicio</li>
+              </ul>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Dichas finalidades están basadas en principios legales de tratamiento de los datos: para la ejecución de un contrato o la prestación de un servicio a los usuarios, para el cumplimiento de obligaciones legales, por el interés legítimo y con el consentimiento de los usuarios.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Formularios web</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Los datos personales recabados a través del formulario web de contacto se usan para poder atender cualquier consulta que el usuario realice a través del mismo. El tratamiento de los datos está legitimado por el consentimiento que usted nos presta al aceptar expresamente las condiciones del tratamiento informadas a través de esta política de privacidad.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Destinatarios de los datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Los datos de carácter personal obtenidos a través de los formularios web son registrados y conservados en soportes electrónicos controlados y supervisados por el responsable del tratamiento. Sus datos personales no serán comunicados a terceros, salvo que dicha comunicación esté amparada en una obligación legal o sea necesaria para la correcta prestación del servicio.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Medidas técnicas y organizativas de protección de datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Los soportes cuentan con las medidas técnicas y organizativas necesarias que garantizan la confidencialidad y la conservación de los datos personales obtenidos a través de la web. Los datos personales recabados desde la web son tratados mediante protocolo HTTPS con certificado SSL válido.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Conservación de los datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Los datos de carácter personal obtenidos a través del formulario de contacto serán conservados el tiempo necesario para atender la solicitud o consulta realizada.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">AVISO LEGAL</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                El diseño del portal y sus códigos fuente, así como los logos, marcas y demás signos distintivos que aparecen en el mismo pertenecen a AUJ2023, S.L. y están protegidos por los correspondientes derechos de propiedad intelectual e industrial.
+              </p>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                En virtud de lo dispuesto en la Ley de Propiedad Intelectual quedan expresamente prohibidas la reproducción, la distribución y la comunicación pública de la totalidad o parte de los contenidos de esta página web, con fines comerciales en cualquier soporte, sin la autorización de AUJ2023, S.L.
+              </p>
+            </section>
+
+            <section className="flex flex-col gap-3">
+              <h3 className="m-0 font-display font-bold text-xl">Ejercicio de los derechos de protección de datos</h3>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                De acuerdo con los derechos que confiere la normativa vigente, el usuario podrá ejercer los derechos de acceso, rectificación, limitación de tratamiento, supresión, portabilidad y oposición al tratamiento de sus datos dirigiendo su petición al correo{' '}
+                <a
+                  href="mailto:knitsdigital@gmail.com"
+                  className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
+                >
+                  knitsdigital@gmail.com
+                </a>. Para el ejercicio de los derechos deberá identificarse mediante la presentación de su DNI.
+              </p>
+              <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Para cualquier reclamación puede dirigirse al mismo correo. Igualmente podrá dirigirse a la{' '}
+                <a
+                  href="https://www.aepd.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
+                >
+                  Agencia Española de Protección de Datos
+                </a>.
+              </p>
+            </section>
+          </article>
         </div>
-      </header>
-
-      <main id="main" tabIndex={-1} className="mx-auto max-w-[1000px] px-8 py-16">
-        <article className={`flex flex-col gap-6 ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
-          <h1 className="m-0 font-display font-black text-4xl tracking-tight">
-            Política de Privacidad
-          </h1>
-          <p className={`m-0 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-            Última actualización:{' '}
-            {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </p>
-
-          <section className="flex flex-col gap-2">
-            <h2 className="m-0 font-display font-bold text-xl">1. Responsable del tratamiento</h2>
-            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              KnitsDigital, especialista en producto digital accesible, es responsable del tratamiento de tus datos personales.
-            </p>
-          </section>
-
-          <section className="flex flex-col gap-2">
-            <h2 className="m-0 font-display font-bold text-xl">2. Datos que recopilamos</h2>
-            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Recopilamos información que nos proporcionas voluntariamente a través de formularios de contacto, incluyendo:
-            </p>
-            <ul className={`m-0 flex list-disc flex-col gap-1 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              <li>Nombre</li>
-              <li>Correo electrónico</li>
-              <li>Información sobre tu proyecto</li>
-            </ul>
-          </section>
-
-          <section className="flex flex-col gap-2">
-            <h2 className="m-0 font-display font-bold text-xl">3. Uso de los datos</h2>
-            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Utilizamos tus datos únicamente para:
-            </p>
-            <ul className={`m-0 flex list-disc flex-col gap-1 pl-6 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              <li>Responder a tu solicitud o propuesta</li>
-              <li>Comunicación sobre proyectos</li>
-              <li>Mejora de nuestros servicios</li>
-            </ul>
-          </section>
-
-          <section className="flex flex-col gap-2">
-            <h2 className="m-0 font-display font-bold text-xl">4. Tus derechos</h2>
-            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Tienes derecho a acceder, rectificar o eliminar tus datos. Contáctanos en hola@knitsdigital.es
-            </p>
-          </section>
-
-          <section className="flex flex-col gap-2">
-            <h2 className="m-0 font-display font-bold text-xl">5. Contacto</h2>
-            <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Para preguntas sobre privacidad:{' '}
-              <a
-                href="mailto:hola@knitsdigital.es"
-                className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}
-              >
-                hola@knitsdigital.es
-              </a>
-            </p>
-          </section>
-        </article>
       </main>
-
-      <footer
-        className={`border-t px-8 py-6 text-center font-mono text-sm ${
-          light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'
-        }`}
-        role="contentinfo"
-      >
-        KnitsDigital © {new Date().getFullYear()}
-      </footer>
+      <PageFooter isLight={light} />
     </div>
   );
 }

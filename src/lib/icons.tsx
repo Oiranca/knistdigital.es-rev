@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IconProps {
-  name: 'sun' | 'moon' | 'menu' | 'close' | 'instagram' | 'linkedin' | 'spark';
+  name: 'sun' | 'moon' | 'menu' | 'close' | 'instagram' | 'linkedin' | 'spark' | 'play' | 'pause' | 'accessibility' | 'people' | 'growth';
   className?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
   width?: number;
@@ -54,6 +54,34 @@ const PATHS: Record<IconProps['name'], React.ReactNode> = {
   ),
   spark: (
     <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" />
+  ),
+  play: (
+    <polygon points="5 3 19 12 5 21 5 3" />
+  ),
+  pause: (
+    <>
+      <rect x="6" y="4" width="4" height="16" />
+      <rect x="14" y="4" width="4" height="16" />
+    </>
+  ),
+  accessibility: (
+    <>
+      <circle cx="12" cy="4.5" r="1.5" />
+      <path d="M5 8h14M10 8v5l-2 7M14 8v5l2 7M9 13h6" />
+    </>
+  ),
+  people: (
+    <>
+      <circle cx="9" cy="8" r="3" />
+      <circle cx="17" cy="9" r="2" />
+      <path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 20c0-2 2-3 4-3s3 1 3 3" />
+    </>
+  ),
+  growth: (
+    <>
+      <path d="M4 19l5-5 4 3 7-8" />
+      <path d="M14 9h6v6" />
+    </>
   ),
 };
 

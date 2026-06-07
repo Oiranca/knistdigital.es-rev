@@ -1,15 +1,15 @@
 'use client';
 
-import { nav, routes, services, manifesto, collaborators } from '@/lib/data';
+import { nav, routes, services, manifesto, collaborators, footerLegal } from '@/lib/data';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/lib/icons';
 import { resolveInitialTheme, saveTheme } from '@/lib/theme';
 
-type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text'; text: string };
+type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text' | 'fn'; text: string };
 
 const CODE_LINES: { i: string; parts: CodePart[] }[] = [
-  { i: '01', parts: [{ type: 'keyword', text: 'function' }, { type: 'text', text: ' knitsdigital() {' }] },
+  { i: '01', parts: [{ type: 'keyword', text: 'function' }, { type: 'text', text: ' ' }, { type: 'fn', text: 'knitsdigital' }, { type: 'text', text: '() {' }] },
   { i: '02', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// Donde la tecnología, la creatividad' }] },
   { i: '03', parts: [{ type: 'text', text: '  ' }, { type: 'comment', text: '// y las personas se entrelazan.' }] },
   { i: '04', parts: [{ type: 'text', text: '  ' }, { type: 'keyword', text: 'return' }, { type: 'text', text: ' {' }] },
@@ -22,8 +22,9 @@ const CODE_LINES: { i: string; parts: CodePart[] }[] = [
 
 function Hero({ isLight }: { isLight: boolean }) {
   const [lineCount, setLineCount] = useState(0);
-
   useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) { setLineCount(CODE_LINES.length); return; }
     let i = 0;
     const id = setInterval(() => {
       i++;
@@ -38,6 +39,21 @@ function Hero({ isLight }: { isLight: boolean }) {
       className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-8 py-16 pb-24"
       aria-labelledby="hero-title"
     >
+      {/* Radial glow background */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 60% 50% at 30% 20%, rgba(210,233,104,0.08) 0%, transparent 70%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 50% 40% at 80% 80%, rgba(1,192,149,0.08) 0%, transparent 70%)',
+          }}
+        />
+      </div>
       <div className="relative z-10 mx-auto grid w-full max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
         {/* Text column */}
         <div className="flex flex-col gap-6">
@@ -50,7 +66,7 @@ function Hero({ isLight }: { isLight: boolean }) {
             }`}
           >
             <span
-              className="inline-block h-2 w-2 rounded-full bg-kd-pistacho shadow-[0_0_8px_#d2e968] animate-[cs-pulse_1.6s_ease-in-out_infinite]"
+              className="inline-block h-2 w-2 rounded-full bg-kd-pistacho shadow-[0_0_8px_var(--color-kd-pistacho)] animate-cs-pulse"
               aria-hidden="true"
             />
             <span>~/knitsdigital</span>
@@ -82,13 +98,13 @@ function Hero({ isLight }: { isLight: boolean }) {
           <div className="flex flex-wrap gap-3">
             <Link
               href={routes.contacto}
-              className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-6 py-3 font-display font-extrabold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+              className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
             >
-              Contactar <span className="animate-[cs-blink_1s_steps(1)_infinite]" aria-hidden="true">_</span>
+              Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
             </Link>
             <Link
               href={routes.servicios}
-              className={`inline-flex items-center gap-2 rounded-full border px-6 py-3 font-display font-extrabold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
+              className={`inline-flex items-center gap-2 rounded-[0.625rem] border px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
                 isLight
                   ? 'border-black/20 text-[#1a1b1e] hover:border-kd-pistacho-deep hover:text-kd-pistacho-deep'
                   : 'border-white/20 text-cs-fg hover:border-kd-pistacho hover:text-kd-pistacho'
@@ -146,13 +162,15 @@ function Hero({ isLight }: { isLight: boolean }) {
                   {l.parts.map((part, idx) => {
                     const colorClass =
                       part.type === 'keyword'
-                        ? 'text-[#c586c0]'
+                        ? 'text-syn-keyword'
                         : part.type === 'comment'
                         ? 'text-syn-comment'
                         : part.type === 'string'
                         ? 'text-kd-pistacho'
                         : part.type === 'bool'
-                        ? 'text-[#569cd6]'
+                        ? 'text-syn-bool'
+                        : part.type === 'fn'
+                        ? 'text-kd-turquesa'
                         : '';
                     return (
                       <span key={idx} className={colorClass}>
@@ -164,7 +182,7 @@ function Hero({ isLight }: { isLight: boolean }) {
               </code>
             ))}
             {lineCount < CODE_LINES.length && (
-              <span className="inline-block animate-[cs-blink_1s_steps(1)_infinite] text-kd-pistacho" aria-hidden="true">
+              <span className="inline-block animate-cs-blink text-kd-pistacho" aria-hidden="true">
                 ▍
               </span>
             )}
@@ -184,7 +202,7 @@ function Services({ isLight }: { isLight: boolean }) {
       aria-labelledby="services-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* servicios */'}
         </span>
         <h2
@@ -283,7 +301,11 @@ function Services({ isLight }: { isLight: boolean }) {
                 <span className="font-mono text-sm text-syn-comment">{`// ${s.tag}.module`}</span>
                 <h3
                   className={`m-0 font-display font-black text-2xl tracking-tight ${
-                    isLight ? 'text-[#1a1b1e]' : 'text-cs-fg'
+                    s.color === 'lila'
+                      ? isLight ? 'text-kd-lila-deep' : 'text-kd-lila'
+                      : s.color === 'turquesa'
+                      ? isLight ? 'text-kd-turquesa-deep' : 'text-kd-turquesa'
+                      : isLight ? 'text-kd-pistacho-deep' : 'text-kd-pistacho'
                   }`}
                 >
                   {s.title}
@@ -302,18 +324,18 @@ function Services({ isLight }: { isLight: boolean }) {
                   <code>
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>01</span>
                     {' '}
-                    <span className="text-[#c586c0]">export const</span>
+                    <span className="text-syn-keyword">export const</span>
                     <span>{` ${s.tag} `}</span>
-                    <span className="text-[#c586c0]">=</span>
+                    <span className="text-syn-keyword">=</span>
                     <span>{` () `}</span>
-                    <span className="text-[#c586c0]">{'=>'}</span>
+                    <span className="text-syn-keyword">{'=>'}</span>
                     <span>{` {`}</span>
                     {'\n'}
                     <span className={isLight ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}>02</span>
                     {' '}
-                    <span className="text-[#c586c0]">return</span>
+                    <span className="text-syn-keyword">return</span>
                     <span>{` { accesible: `}</span>
-                    <span className="text-[#569cd6]">true</span>
+                    <span className="text-syn-bool">true</span>
                     <span>{`, impacto: `}</span>
                     <span className="text-kd-pistacho">'real'</span>
                     <span>{` };`}</span>
@@ -346,11 +368,11 @@ function Manifesto({ isLight }: { isLight: boolean }) {
   return (
     <section
       className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''}`}
-      style={isLight ? undefined : { background: 'color-mix(in srgb, #14151a 72%, transparent)' }}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 72%, transparent)' }}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* manifest */'}
         </span>
         <h2
@@ -396,7 +418,10 @@ function Manifesto({ isLight }: { isLight: boolean }) {
                 {m.desc}
               </p>
               <div className={`mt-2 flex gap-4 font-mono text-xs ${isLight ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-                <span>♿ {m.icon}</span>
+                <span className="inline-flex items-center gap-1">
+                  <Icon name={m.icon as 'accessibility' | 'people' | 'growth'} width={14} height={14} aria-hidden="true" />
+                  {m.icon}
+                </span>
                 <span>+{12 + i * 3} -0</span>
                 <span>main</span>
               </div>
@@ -410,16 +435,25 @@ function Manifesto({ isLight }: { isLight: boolean }) {
 
 function Collab({ isLight }: { isLight: boolean }) {
   const [paused, setPaused] = useState(false);
+  const [prefersReduced, setPrefersReduced] = useState(false);
   const list = [...collaborators, ...collaborators];
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReduced(mq.matches);
+    const fn = (e: MediaQueryListEvent) => setPrefersReduced(e.matches);
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  }, []);
 
   return (
     <section
       className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : ''}`}
-      style={isLight ? undefined : { background: 'color-mix(in srgb, #14151a 80%, transparent)' }}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 80%, transparent)' }}
       aria-labelledby="collab-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* clientes */'}
         </span>
         <h2
@@ -441,7 +475,7 @@ function Collab({ isLight }: { isLight: boolean }) {
           }`}
         >
           <ul
-            className={`marquee-track ${paused ? 'is-paused' : ''} m-0 list-none items-center p-4`}
+            className={`marquee-track ${(paused || prefersReduced) ? 'is-paused' : ''} m-0 list-none items-center p-4`}
             role="list"
             aria-label="Logos de clientes"
           >
@@ -450,17 +484,17 @@ function Collab({ isLight }: { isLight: boolean }) {
                 <a
                   href={c.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label={c.alt}
                   tabIndex={i >= collaborators.length ? -1 : 0}
                   aria-hidden={i >= collaborators.length}
-                  className="flex h-16 w-32 items-center justify-center rounded opacity-50 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+                  className="flex h-16 w-36 items-center justify-center rounded-lg bg-white px-3 shadow-sm transition-all hover:shadow-md hover:scale-105"
                 >
                   <img
                     src={c.img}
                     alt={i < collaborators.length ? c.alt : ''}
                     loading="lazy"
-                    className="max-h-10 w-auto max-w-full object-contain"
+                    className="max-h-[42px] w-auto max-w-full object-contain"
                   />
                 </a>
               </li>
@@ -478,7 +512,7 @@ function Collab({ isLight }: { isLight: boolean }) {
               : 'border-cs-line text-cs-fg-soft hover:border-white/20'
           }`}
         >
-          {paused ? '▶' : '⏸'}
+          <Icon name={paused ? 'play' : 'pause'} width={16} height={16} aria-hidden="true" />
           <span>{paused ? 'Play' : 'Pause'}</span>
         </button>
       </div>
@@ -489,15 +523,21 @@ function Collab({ isLight }: { isLight: boolean }) {
 function CTA({ isLight }: { isLight: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'}`}
+      className={`relative overflow-hidden px-8 py-24 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'}`}
       aria-labelledby="cta-title"
     >
+      {/* Glow radial */}
       <div
-        className={`mx-auto max-w-[900px] rounded-xl border p-12 text-center ${
-          isLight ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'
-        }`}
+        className="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style={{
+          background: 'radial-gradient(ellipse 70% 60% at 50% 50%, rgba(210,233,104,0.16) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="relative mx-auto max-w-[900px] text-center"
       >
-        <span className={`font-mono text-xs uppercase tracking-widest ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
           {'/* contacto */'}
         </span>
         <h2
@@ -513,9 +553,9 @@ function CTA({ isLight }: { isLight: boolean }) {
         </p>
         <Link
           href={routes.contacto}
-          className="inline-flex items-center gap-2 rounded-full bg-kd-pistacho px-8 py-4 font-display font-extrabold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+          className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
-          Contactar <span className="animate-[cs-blink_1s_steps(1)_infinite]" aria-hidden="true">_</span>
+          Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
         </Link>
       </div>
     </section>
@@ -526,25 +566,39 @@ export default function Home() {
   const [isLight, setIsLight] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsLight(resolveInitialTheme());
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 24);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggle = () => {
-    const newVal = !isLight;
-    setIsLight(newVal);
-    saveTheme(newVal);
+    setIsLight(prev => {
+      const newVal = !prev;
+      saveTheme(newVal);
+      return newVal;
+    });
   };
 
   const light = mounted && isLight;
 
-  // Close menu on Escape
+  // Close menu on Escape — restore focus to burger button
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMenuOpen(false);
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        burgerRef.current?.focus();
+      }
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -566,10 +620,14 @@ export default function Home() {
     >
       {/* NAV */}
       <header
-        className={`sticky top-0 z-50 border-b ${
-          light
-            ? 'border-black/10 bg-[#f5f5f7]/90 backdrop-blur-xl'
-            : 'border-white/8 bg-cs-bg/90 backdrop-blur-xl'
+        className={`sticky top-0 z-50 transition-all duration-200 ${
+          scrolled
+            ? light
+              ? 'border-b border-black/10 bg-[#f5f5f7]/95 backdrop-blur-xl shadow-sm'
+              : 'border-b border-white/8 bg-cs-bg/95 backdrop-blur-xl shadow-sm'
+            : light
+            ? 'border-b border-transparent bg-[#f5f5f7]/90 backdrop-blur-sm'
+            : 'border-b border-transparent bg-transparent'
         }`}
         role="banner"
       >
@@ -623,9 +681,9 @@ export default function Home() {
             {/* Desktop CTA */}
             <Link
               href={routes.contacto}
-              className={`hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-display font-extrabold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
+              className={`hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
                 light
-                  ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                  ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
                   : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
               }`}
             >
@@ -634,6 +692,7 @@ export default function Home() {
 
             {/* Burger — mobile only */}
             <button
+              ref={burgerRef}
               type="button"
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
@@ -668,7 +727,7 @@ export default function Home() {
           aria-label="Menú de navegación"
           aria-hidden={!menuOpen}
           className={`fixed top-0 right-0 bottom-0 z-50 flex flex-col gap-1 p-6 md:hidden ${
-            light ? 'bg-[#f5f5f7]' : 'bg-[#14151a]'
+            light ? 'bg-[#f5f5f7]' : 'bg-cs-bg-2'
           }`}
           style={{
             width: 'min(80vw, 320px)',
@@ -680,6 +739,7 @@ export default function Home() {
           <button
             type="button"
             aria-label="Cerrar menú"
+            tabIndex={menuOpen ? 0 : -1}
             onClick={() => setMenuOpen(false)}
             className={`self-end inline-flex h-9 w-9 items-center justify-center rounded-full border bg-transparent mb-4 transition-colors ${
               light
@@ -714,9 +774,9 @@ export default function Home() {
             href={routes.contacto}
             onClick={() => setMenuOpen(false)}
             tabIndex={menuOpen ? 0 : -1}
-            className={`mt-4 flex items-center justify-center gap-2 rounded-full px-6 py-3 font-display font-extrabold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
+            className={`mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
               light
-                ? 'bg-kd-black text-kd-white hover:bg-kd-black/80'
+                ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
                 : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
             }`}
             style={{
@@ -739,12 +799,68 @@ export default function Home() {
       </main>
 
       <footer
-        className={`border-t px-8 py-6 text-center font-mono text-sm ${
-          light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'
-        }`}
+        className={`border-t px-8 py-12 ${light ? 'border-black/10' : 'border-cs-line'}`}
         role="contentinfo"
       >
-        KnitsDigital © {new Date().getFullYear()}
+        <div className="mx-auto max-w-[1320px]">
+          {/* Brand */}
+          <div className="mb-10 flex items-start gap-4">
+            <img src="/assets/isotype.png" alt="" width={40} height={40} aria-hidden="true" />
+            <div>
+              <div className={`font-mono text-lg font-bold tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+                knitsdigital
+              </div>
+              <p className={`m-0 mt-1 max-w-[40ch] text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                Donde la tecnología, la <em>creatividad</em> y las personas <em>se entrelazan</em>.
+              </p>
+            </div>
+          </div>
+
+          {/* 3-column grid */}
+          <div className="mb-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Navega</h3>
+              <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                {nav.map((item) => (
+                  <li key={item.to}>
+                    <Link href={item.to} className={`font-mono text-sm no-underline transition-colors hover:text-kd-pistacho ${light ? 'text-[#1a1b1e]' : 'text-cs-fg-soft'}`}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Legal</h3>
+              <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                {footerLegal.map((item) => (
+                  <li key={item.to}>
+                    <Link href={item.to} className={`font-mono text-sm no-underline transition-colors hover:text-kd-pistacho ${light ? 'text-[#1a1b1e]' : 'text-cs-fg-soft'}`}>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className={`m-0 mb-4 font-mono text-[11px] font-bold uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>Síguenos</h3>
+              <div className="flex gap-4">
+                <a href="https://instagram.com/knitsdigital" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                  <Icon name="instagram" width={20} height={20} aria-hidden="true" />
+                </a>
+                <a href="https://linkedin.com/company/knitsdigital" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de KnitsDigital" className={`transition-colors hover:text-kd-pistacho ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                  <Icon name="linkedin" width={20} height={20} aria-hidden="true" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className={`flex flex-col gap-1 border-t pt-6 font-mono text-xs sm:flex-row sm:items-center sm:justify-between ${light ? 'border-black/10 text-[#6e6f75]' : 'border-cs-line text-cs-fg-soft'}`}>
+            <p className="m-0">© KnitsDigital {new Date().getFullYear()}</p>
+            <p className="m-0">Hecho con accesibilidad como hilo conductor.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );
