@@ -1,11 +1,33 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { routes, serviceCats } from '@/lib/data';
 import { PageNav } from '@/lib/PageNav';
 import { PageFooter } from '@/lib/PageFooter';
 import { useTheme } from '@/lib/useTheme';
+
+function useReveal() {
+  const [revealed, setRevealed] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, revealed };
+}
 
 function useTypingLines(total: number, ms = 220) {
   const [shown, setShown] = useState(0);
@@ -145,10 +167,12 @@ function ServiciosCats({ light }: { light: boolean }) {
         <div className="flex flex-col gap-8">
           {serviceCats.map((cat) => {
             const ac = accentClasses[cat.accent];
+            const { ref, revealed } = useReveal();
             return (
               <article
+                ref={ref}
                 key={cat.num}
-                className={`rounded-xl border p-8 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'} ${ac.border}`}
+                className={`rounded-xl border p-8 transition-all duration-700 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'} ${ac.border}`}
               >
                 <header className="mb-4 flex items-baseline gap-4">
                   <span className={`font-mono text-2xl font-black ${ac.num}`}>{cat.num}</span>
