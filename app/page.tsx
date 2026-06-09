@@ -44,13 +44,13 @@ function Hero({ isLight }: { isLight: boolean }) {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--color-kd-pistacho) 25%, transparent), transparent 50%)',
+            background: 'radial-gradient(circle at 40% 50%, color-mix(in srgb, var(--color-kd-pistacho) 55%, transparent), transparent 70%)',
           }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 80% 80%, color-mix(in srgb, var(--color-kd-turquesa) 25%, transparent), transparent 50%)',
+            background: 'radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-kd-turquesa) 55%, transparent), transparent 70%)',
           }}
         />
       </div>
