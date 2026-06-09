@@ -564,9 +564,9 @@ function CTA({ isLight }: { isLight: boolean }) {
 
 export default function Home() {
   const [isLight, setIsLight] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -589,7 +589,7 @@ export default function Home() {
     });
   };
 
-  const light = mounted && isLight;
+  const light = isLight;
 
   // Close menu on Escape — restore focus to burger button
   useEffect(() => {
@@ -672,10 +672,7 @@ export default function Home() {
                   : 'border-white/10 text-cs-fg hover:bg-white/8'
               }`}
             >
-              {mounted
-                ? <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
-                : <Icon name="moon" width={18} height={18} aria-hidden="true" />
-              }
+              <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
             </button>
 
             {/* Desktop CTA */}
