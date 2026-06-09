@@ -36,7 +36,7 @@ function Hero({ isLight }: { isLight: boolean }) {
 
   return (
     <section
-      className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-8 py-16 pb-24"
+      className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-8 py-[80px] pb-[100px]"
       aria-labelledby="hero-title"
     >
       {/* Radial glow background */}
@@ -54,7 +54,7 @@ function Hero({ isLight }: { isLight: boolean }) {
           }}
         />
       </div>
-      <div className="relative z-10 mx-auto grid w-full max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1320px] grid-cols-1 items-center gap-[64px] pt-10 lg:grid-cols-[1fr_1.1fr]">
         {/* Text column */}
         <div className="flex flex-col gap-6">
           {/* Badge */}
@@ -76,10 +76,10 @@ function Hero({ isLight }: { isLight: boolean }) {
           {/* Heading */}
           <h1
             id="hero-title"
-            className={`m-0 font-display font-black leading-[1.02] tracking-[-0.04em] ${
+            className={`m-0 mt-6 font-display font-black leading-[1] tracking-[-0.035em] ${
               isLight ? 'text-[#1a1b1e]' : 'text-cs-fg'
             }`}
-            style={{ fontSize: 'clamp(40px, 7vw, 88px)' }}
+            style={{ fontSize: 'clamp(48px, 7vw, 92px)' }}
           >
             Tejemos código<br />
             <span className="gradient-text italic">accesible</span>.
@@ -95,7 +95,7 @@ function Hero({ isLight }: { isLight: boolean }) {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 pt-8">
             <Link
               href={routes.contact}
               className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
