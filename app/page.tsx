@@ -44,13 +44,13 @@ function Hero({ isLight }: { isLight: boolean }) {
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 40% 50%, color-mix(in srgb, var(--color-kd-pistacho) 55%, transparent), transparent 70%)',
+            background: 'radial-gradient(circle at 40% 50%, color-mix(in srgb, var(--color-kd-pistacho) 90%, transparent), transparent 60%)',
           }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-kd-turquesa) 55%, transparent), transparent 70%)',
+            background: 'radial-gradient(circle at 70% 40%, color-mix(in srgb, var(--color-kd-turquesa) 90%, transparent), transparent 60%)',
           }}
         />
       </div>
@@ -614,7 +614,7 @@ export default function Home() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#faf8f3' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >
