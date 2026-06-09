@@ -31,8 +31,8 @@ export default function NotFound() {
           >
             <defs>
               <linearGradient id="nfGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#a99df1" />
-                <stop offset="1" stopColor="#01c095" />
+                <stop offset="0" stopColor="var(--color-kd-lila)" />
+                <stop offset="1" stopColor="var(--color-kd-turquesa)" />
               </linearGradient>
             </defs>
             <path
@@ -61,7 +61,7 @@ export default function NotFound() {
               className="m-0 font-display font-black leading-none tracking-[-0.05em]"
               style={{
                 fontSize: 'clamp(80px, 16vw, 200px)',
-                background: 'linear-gradient(135deg, #d2e968, #01c095 50%, #a99df1)',
+                background: 'linear-gradient(135deg, var(--color-kd-pistacho), var(--color-kd-turquesa) 50%, var(--color-kd-lila))',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 color: 'transparent',

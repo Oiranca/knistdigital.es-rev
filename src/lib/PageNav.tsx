@@ -80,7 +80,7 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
                 aria-current={isCurrent ? 'page' : undefined}
                 className={`inline-flex items-center gap-1.5 rounded-full border border-transparent px-4 py-2 font-mono text-[13px] font-bold no-underline transition-colors hover:border-kd-pistacho hover:text-kd-pistacho ${
                   isCurrent
-                    ? light ? 'text-kd-lila-deep border-kd-lila-deep/30' : 'text-kd-pistacho border-kd-pistacho/30'
+                    ? 'text-kd-pistacho border-kd-pistacho/30'
                     : light ? 'text-[#1a1b1e]' : 'text-cs-fg'
                 }`}
               >
@@ -111,12 +111,8 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
 
           {/* Desktop CTA */}
           <Link
-            href={routes.contact}
-            className={`hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
-              light
-                ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
-                : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
-            }`}
+            href={routes.contacto}
+            className="hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]"
           >
             Contactar <span aria-hidden="true">→</span>
           </Link>
@@ -203,14 +199,10 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
           </Link>
         ))}
         <Link
-          href={routes.contact}
+          href={routes.contacto}
           onClick={() => setMenuOpen(false)}
           tabIndex={menuOpen ? 0 : -1}
-          className={`mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
-            light
-              ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
-              : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
-          }`}
+          className="mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]"
           style={{
             opacity: menuOpen ? 1 : 0,
             transform: menuOpen ? 'translateX(0)' : 'translateX(20px)',

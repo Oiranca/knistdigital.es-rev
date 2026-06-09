@@ -367,8 +367,7 @@ function Services({ isLight }: { isLight: boolean }) {
 function Manifesto({ isLight }: { isLight: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''}`}
-      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 72%, transparent)' }}
+      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : 'bg-cs-bg-2 manifesto-glow'}`}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
