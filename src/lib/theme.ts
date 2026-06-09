@@ -29,9 +29,5 @@ export function saveTheme(isLight: boolean): void {
 export function resolveInitialTheme(): boolean {
   const stored = getStoredTheme();
   if (stored !== null) return stored;
-  // Default to dark (false = dark)
-  if (typeof window !== 'undefined') {
-    return !window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-  return false;
+  return false; // Default to dark mode
 }
