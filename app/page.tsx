@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/lib/icons';
 import { resolveInitialTheme, saveTheme } from '@/lib/theme';
-import { useReveal } from '@/lib/useReveal';
 
 type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text' | 'fn'; text: string };
 
@@ -132,9 +131,9 @@ function Hero({ isLight }: { isLight: boolean }) {
               isLight ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'
             }`}
           >
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            <span className="h-3 w-3 rounded-full bg-mac-red" />
+            <span className="h-3 w-3 rounded-full bg-mac-yellow" />
+            <span className="h-3 w-3 rounded-full bg-mac-green" />
             <span
               className={`ml-3 rounded px-3 py-0.5 text-xs ${
                 isLight ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'
@@ -196,16 +195,14 @@ function Hero({ isLight }: { isLight: boolean }) {
 
 function Services({ isLight }: { isLight: boolean }) {
   const [active, setActive] = useState(0);
-  const { ref: servicesRef, revealed: servicesRevealed } = useReveal<HTMLElement>();
 
   return (
     <section
-      ref={servicesRef}
-      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg'} ${servicesRevealed ? 'animate-v3-rise' : 'opacity-0'}`}
+      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg'}`}
       aria-labelledby="services-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* servicios */'}
         </span>
         <h2
@@ -368,17 +365,14 @@ function Services({ isLight }: { isLight: boolean }) {
 }
 
 function Manifesto({ isLight }: { isLight: boolean }) {
-  const { ref: manifestoRef, revealed: manifestoRevealed } = useReveal<HTMLElement>();
-
   return (
     <section
-      ref={manifestoRef}
-      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''} ${manifestoRevealed ? 'animate-v3-rise' : 'opacity-0'}`}
+      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''}`}
       style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 72%, transparent)' }}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* manifest */'}
         </span>
         <h2
@@ -459,7 +453,7 @@ function Collab({ isLight }: { isLight: boolean }) {
       aria-labelledby="collab-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
-        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* clientes */'}
         </span>
         <h2
@@ -543,7 +537,7 @@ function CTA({ isLight }: { isLight: boolean }) {
       <div
         className="relative mx-auto max-w-[900px] text-center"
       >
-        <span className={`font-mono text-xs ${isLight ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* contacto */'}
         </span>
         <h2
@@ -689,7 +683,7 @@ export default function Home() {
               href={routes.contact}
               className={`hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
                 light
-                  ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
+                  ? 'bg-kd-nav-cta text-white hover:bg-kd-nav-cta-hover'
                   : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
               }`}
             >
@@ -782,7 +776,7 @@ export default function Home() {
             tabIndex={menuOpen ? 0 : -1}
             className={`mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
               light
-                ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
+                ? 'bg-kd-nav-cta text-white hover:bg-kd-nav-cta-hover'
                 : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
             }`}
             style={{

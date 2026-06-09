@@ -29,7 +29,7 @@ function EquipoHero({ light }: { light: boolean }) {
     <header className="relative px-8 py-16">
       <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* equipo */'}
           </span>
           <h1
@@ -51,9 +51,9 @@ function EquipoHero({ light }: { light: boolean }) {
           aria-label="Lista del equipo"
         >
           <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            <span className="h-3 w-3 rounded-full bg-mac-red" />
+            <span className="h-3 w-3 rounded-full bg-mac-yellow" />
+            <span className="h-3 w-3 rounded-full bg-mac-green" />
             <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
               team.json
             </span>
@@ -107,7 +107,7 @@ function TeamGrid({ light }: { light: boolean }) {
     <section className="px-8 py-16" aria-labelledby="eq-team-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-10 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* quienes formamos */'}
           </span>
           <h2
@@ -147,7 +147,7 @@ function TeamGrid({ light }: { light: boolean }) {
                   <h3 className={`m-0 font-display font-black text-xl ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
                     {member.name}
                   </h3>
-                  <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+                  <span className={`font-mono text-xs text-syn-comment`}>
                     {member.role}
                   </span>
                 </div>
@@ -171,7 +171,7 @@ function WhySection({ light }: { light: boolean }) {
     >
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-10 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* por qué */'}
           </span>
           <h2

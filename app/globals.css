@@ -35,6 +35,15 @@
   --color-syn-comment: #6a9955;
   --color-syn-bool: #569cd6;
 
+  /* macOS traffic light colors */
+  --color-mac-red: #ff5f57;
+  --color-mac-yellow: #febc2e;
+  --color-mac-green: #28c840;
+
+  /* Nav CTA light mode (WCAG AA: 5.41:1 on white) */
+  --color-kd-nav-cta: #6b5db8;
+  --color-kd-nav-cta-hover: #5d4fa8;
+
   /* Fonts */
   --font-display: var(--kd-display);
   --font-body: var(--kd-body);
@@ -116,14 +125,6 @@
 /* Gradient text utility */
 .gradient-text {
   background: linear-gradient(135deg, var(--color-kd-pistacho), var(--color-kd-turquesa));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Light-mode hero gradient override */
-.is-light .gradient-text {
-  background: linear-gradient(135deg, var(--color-kd-lila-deep), var(--color-kd-turquesa-deep));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

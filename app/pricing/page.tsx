@@ -37,7 +37,7 @@ function PreciosHero({ light }: { light: boolean }) {
     <header className="relative px-8 py-16">
       <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* precios */'}
           </span>
           <h1
@@ -59,9 +59,9 @@ function PreciosHero({ light }: { light: boolean }) {
           aria-label="Lista de precios"
         >
           <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            <span className="h-3 w-3 rounded-full bg-mac-red" />
+            <span className="h-3 w-3 rounded-full bg-mac-yellow" />
+            <span className="h-3 w-3 rounded-full bg-mac-green" />
             <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
               pricing.json
             </span>
@@ -97,7 +97,7 @@ function FreelancerSection({ light }: { light: boolean }) {
     <section className="px-8 py-16" aria-labelledby="pr-free-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-8 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* cuota mensual */'}
           </span>
           <h2
@@ -171,7 +171,7 @@ function LandingsSection({ light }: { light: boolean }) {
     <section className={`px-8 py-16 ${light ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`} aria-labelledby="pr-land-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-8 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* landings */'}
           </span>
           <h2
@@ -195,9 +195,9 @@ function LandingsSection({ light }: { light: boolean }) {
                 className={`flex flex-col overflow-hidden rounded-xl border ${light ? 'bg-white' : 'bg-cs-bg-card'} ${ac.border}`}
               >
                 <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
-                  <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-                  <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-                  <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                  <span className="h-3 w-3 rounded-full bg-mac-red" />
+                  <span className="h-3 w-3 rounded-full bg-mac-yellow" />
+                  <span className="h-3 w-3 rounded-full bg-mac-green" />
                   <span className={`ml-2 font-mono text-xs ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
                     {p.name.toLowerCase()}.json
                   </span>
@@ -265,7 +265,7 @@ function MaintenanceSection({ light }: { light: boolean }) {
     <section className="px-8 py-16" aria-labelledby="pr-maint-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-8 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* mantenimiento */'}
           </span>
           <h2
@@ -322,7 +322,7 @@ function PreciosCTA({ light }: { light: boolean }) {
       aria-labelledby="pr-cta-title"
     >
       <div className="mx-auto max-w-[900px] text-center">
-        <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* presupuesto a medida */'}
         </span>
         <h2

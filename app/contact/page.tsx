@@ -230,7 +230,7 @@ export default function ContactoPage() {
           <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-start gap-16 lg:grid-cols-2">
             {/* Left col */}
             <div className="flex flex-col gap-6">
-              <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+              <span className={`font-mono text-xs text-syn-comment`}>
                 {'/* contacto */'}
               </span>
               <h1

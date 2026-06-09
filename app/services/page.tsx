@@ -30,7 +30,7 @@ function ServiciosHero({ light }: { light: boolean }) {
       <div className="mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-12 lg:grid-cols-2">
         {/* Text */}
         <div className="flex flex-col gap-6">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* servicios */'}
           </span>
           <h1
@@ -64,9 +64,9 @@ function ServiciosHero({ light }: { light: boolean }) {
           aria-label="Tabla de servicios"
         >
           <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
-            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+            <span className="h-3 w-3 rounded-full bg-mac-red" />
+            <span className="h-3 w-3 rounded-full bg-mac-yellow" />
+            <span className="h-3 w-3 rounded-full bg-mac-green" />
             <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
               servicios.ts
             </span>
@@ -127,7 +127,7 @@ function ServiciosCats({ light }: { light: boolean }) {
     <section className="px-8 py-20" aria-labelledby="sv-cats-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-12 flex flex-col gap-2">
-          <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+          <span className={`font-mono text-xs text-syn-comment`}>
             {'/* qué tejemos */'}
           </span>
           <h2
@@ -190,7 +190,7 @@ function ServiciosCTA({ light }: { light: boolean }) {
       aria-labelledby="sv-cta-title"
     >
       <div className="mx-auto max-w-[900px] text-center">
-        <span className={`font-mono text-xs ${light ? 'text-syn-comment' : 'text-kd-pistacho'}`}>
+        <span className={`font-mono text-xs text-syn-comment`}>
           {'/* siguiente paso */'}
         </span>
         <h2
