@@ -126,7 +126,7 @@ function ServiciosHero({ light }: { light: boolean }) {
   );
 }
 
-function ServiciosCats({ light }: { light: boolean }) {
+function ServiceCatCard({ cat, light }: { cat: typeof serviceCats[0]; light: boolean }) {
   const accentClasses: Record<string, { border: string; num: string; h3: string }> = {
     lila: {
       border: light ? 'border-kd-lila/30' : 'border-kd-lila/20',
@@ -145,6 +145,43 @@ function ServiciosCats({ light }: { light: boolean }) {
     },
   };
 
+  const ac = accentClasses[cat.accent];
+  const { ref, revealed } = useReveal();
+
+  return (
+    <article
+      ref={ref}
+      className={`rounded-xl border p-8 transition-all duration-700 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'} ${ac.border}`}
+    >
+      <header className="mb-4 flex items-baseline gap-4">
+        <span className={`font-mono text-2xl font-black ${ac.num}`}>{cat.num}</span>
+        <div>
+          <h3 className={`m-0 font-display font-black text-xl tracking-tight ${ac.h3}`}>
+            {cat.title}
+          </h3>
+          <p className={`m-0 mt-1 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{cat.sub}</p>
+        </div>
+      </header>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {cat.cards.map((card) => (
+          <div
+            key={card.title}
+            className={`rounded-lg border p-5 ${light ? 'border-black/8 bg-[#f5f5f7]' : 'border-cs-line bg-cs-bg'}`}
+          >
+            <h4 className={`m-0 mb-2 font-display font-bold text-base ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+              {card.title}
+            </h4>
+            <p className={`m-0 text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              {card.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function ServiciosCats({ light }: { light: boolean }) {
   return (
     <section className="px-8 py-20" aria-labelledby="sv-cats-title">
       <div className="mx-auto max-w-[1320px]">
@@ -165,42 +202,9 @@ function ServiciosCats({ light }: { light: boolean }) {
         </header>
 
         <div className="flex flex-col gap-8">
-          {serviceCats.map((cat) => {
-            const ac = accentClasses[cat.accent];
-            const { ref, revealed } = useReveal();
-            return (
-              <article
-                ref={ref}
-                key={cat.num}
-                className={`rounded-xl border p-8 transition-all duration-700 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'} ${ac.border}`}
-              >
-                <header className="mb-4 flex items-baseline gap-4">
-                  <span className={`font-mono text-2xl font-black ${ac.num}`}>{cat.num}</span>
-                  <div>
-                    <h3 className={`m-0 font-display font-black text-xl tracking-tight ${ac.h3}`}>
-                      {cat.title}
-                    </h3>
-                    <p className={`m-0 mt-1 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{cat.sub}</p>
-                  </div>
-                </header>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  {cat.cards.map((card) => (
-                    <div
-                      key={card.title}
-                      className={`rounded-lg border p-5 ${light ? 'border-black/8 bg-[#f5f5f7]' : 'border-cs-line bg-cs-bg'}`}
-                    >
-                      <h4 className={`m-0 mb-2 font-display font-bold text-base ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
-                        {card.title}
-                      </h4>
-                      <p className={`m-0 text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-                        {card.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            );
-          })}
+          {serviceCats.map((cat) => (
+            <ServiceCatCard key={cat.num} cat={cat} light={light} />
+          ))}
         </div>
       </div>
     </section>
