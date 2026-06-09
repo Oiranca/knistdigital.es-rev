@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { Icon } from '@/lib/icons';
 import { resolveInitialTheme, saveTheme } from '@/lib/theme';
+import { useReveal } from '@/lib/useReveal';
 
 type CodePart = { type: 'keyword' | 'comment' | 'string' | 'bool' | 'text' | 'fn'; text: string };
 
@@ -195,10 +196,12 @@ function Hero({ isLight }: { isLight: boolean }) {
 
 function Services({ isLight }: { isLight: boolean }) {
   const [active, setActive] = useState(0);
+  const { ref: servicesRef, revealed: servicesRevealed } = useReveal<HTMLElement>();
 
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg'}`}
+      ref={servicesRef}
+      className={`px-8 py-20 ${isLight ? 'bg-[#f5f5f7]' : 'bg-cs-bg'} ${servicesRevealed ? 'animate-v3-rise' : 'opacity-0'}`}
       aria-labelledby="services-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
@@ -365,9 +368,13 @@ function Services({ isLight }: { isLight: boolean }) {
 }
 
 function Manifesto({ isLight }: { isLight: boolean }) {
+  const { ref: manifestoRef, revealed: manifestoRevealed } = useReveal<HTMLElement>();
+
   return (
     <section
-      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : 'bg-cs-bg-2 manifesto-glow'}`}
+      ref={manifestoRef}
+      className={`px-8 py-20 ${isLight ? 'bg-[#ebebed]' : ''} ${manifestoRevealed ? 'animate-v3-rise' : 'opacity-0'}`}
+      style={isLight ? undefined : { background: 'color-mix(in srgb, var(--color-cs-bg-2) 72%, transparent)' }}
       aria-labelledby="manifesto-title"
     >
       <header className="mx-auto mb-10 flex max-w-[1320px] flex-col gap-2">
@@ -563,9 +570,9 @@ function CTA({ isLight }: { isLight: boolean }) {
 
 export default function Home() {
   const [isLight, setIsLight] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -588,7 +595,7 @@ export default function Home() {
     });
   };
 
-  const light = isLight;
+  const light = mounted && isLight;
 
   // Close menu on Escape — restore focus to burger button
   useEffect(() => {
@@ -671,7 +678,10 @@ export default function Home() {
                   : 'border-white/10 text-cs-fg hover:bg-white/8'
               }`}
             >
-              <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
+              {mounted
+                ? <Icon name={isLight ? 'sun' : 'moon'} width={18} height={18} aria-hidden="true" />
+                : <Icon name="moon" width={18} height={18} aria-hidden="true" />
+              }
             </button>
 
             {/* Desktop CTA */}
