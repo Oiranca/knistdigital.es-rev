@@ -130,7 +130,7 @@ function FreelancerSection({ light }: { light: boolean }) {
                 {freelancerPlan.price}
               </div>
               <Link
-                href={routes.contacto}
+                href={routes.contact}
                 className="self-start inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
               >
                 Solicitar presupuesto <span aria-hidden="true">→</span>
@@ -218,7 +218,7 @@ function LandingsSection({ light }: { light: boolean }) {
                     ))}
                   </ul>
                   <Link
-                    href={routes.contacto}
+                    href={routes.contact}
                     className={`mt-2 self-start font-mono text-sm font-bold no-underline transition-colors hover:underline ${ac.text}`}
                   >
                     Solicitar presupuesto →
@@ -336,7 +336,7 @@ function PreciosCTA({ light }: { light: boolean }) {
           Cada proyecto es único. Pide presupuesto personalizado y adaptado a tus necesidades.
         </p>
         <Link
-          href={routes.contacto}
+          href={routes.contact}
           className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
           Solicitar presupuesto{' '}

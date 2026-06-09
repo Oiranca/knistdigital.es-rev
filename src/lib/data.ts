@@ -19,25 +19,26 @@ export const tokens = {
 
 export const routes = {
   home: '/',
-  servicios: '/servicios',
-  equipo: '/equipo',
-  precios: '/precios',
-  contacto: '/contacto',
-  privacidad: '/privacidad',
+  services: '/services',
+  team: '/team',
+  pricing: '/pricing',
+  contact: '/contact',
+  privacy: '/privacy',
   cookies: '/cookies',
+  thankYou: '/thank-you',
 };
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
 
 export const nav = [
-  { label: 'Servicios', to: routes.servicios },
-  { label: 'Equipo', to: routes.equipo },
-  { label: 'Precios', to: routes.precios },
+  { label: 'Servicios', to: routes.services },
+  { label: 'Equipo', to: routes.team },
+  { label: 'Precios', to: routes.pricing },
 ];
 
 export const footerLegal = [
   { label: 'Uso de cookies', to: routes.cookies },
-  { label: 'Política de privacidad', to: routes.privacidad },
+  { label: 'Política de privacidad', to: routes.privacy },
 ];
 
 // ─── Hero ────────────────────────────────────────────────────────────────────

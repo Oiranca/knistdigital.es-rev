@@ -184,7 +184,7 @@ function ContactForm({ light }: { light: boolean }) {
           />
           <span className={`text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
             He leído y acepto los términos y condiciones de{' '}
-            <Link href={routes.privacidad} className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}>
+            <Link href={routes.privacy} className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}>
               privacidad
             </Link>{' '}
             <span className="text-kd-red" aria-label="requerido">*</span>

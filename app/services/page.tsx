@@ -46,7 +46,7 @@ function ServiciosHero({ light }: { light: boolean }) {
           </p>
           <div>
             <Link
-              href={routes.contacto}
+              href={routes.contact}
               className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
             >
               Cuéntanos tu proyecto{' '}
@@ -205,7 +205,7 @@ function ServiciosCTA({ light }: { light: boolean }) {
           El diseño y desarrollo centrado en las personas mejora la accesibilidad, expande el mercado y aumenta la satisfacción de tus clientes.
         </p>
         <Link
-          href={routes.contacto}
+          href={routes.contact}
           className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
           Cuéntanos tu proyecto{' '}

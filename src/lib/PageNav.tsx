@@ -111,7 +111,7 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
 
           {/* Desktop CTA */}
           <Link
-            href={routes.contacto}
+            href={routes.contact}
             className={`hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
               light
                 ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
@@ -203,7 +203,7 @@ export function PageNav({ isLight, mounted, toggle }: PageNavProps) {
           </Link>
         ))}
         <Link
-          href={routes.contacto}
+          href={routes.contact}
           onClick={() => setMenuOpen(false)}
           tabIndex={menuOpen ? 0 : -1}
           className={`mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${

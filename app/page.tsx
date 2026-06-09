@@ -97,13 +97,13 @@ function Hero({ isLight }: { isLight: boolean }) {
           {/* CTAs */}
           <div className="flex flex-wrap gap-3">
             <Link
-              href={routes.contacto}
+              href={routes.contact}
               className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
             >
               Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
             </Link>
             <Link
-              href={routes.servicios}
+              href={routes.services}
               className={`inline-flex items-center gap-2 rounded-[0.625rem] border px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
                 isLight
                   ? 'border-black/20 text-[#1a1b1e] hover:border-kd-pistacho-deep hover:text-kd-pistacho-deep'
@@ -347,7 +347,7 @@ function Services({ isLight }: { isLight: boolean }) {
                 </pre>
               )}
               <Link
-                href={routes.servicios}
+                href={routes.services}
                 className={`self-start border-b pb-0.5 font-mono text-sm font-bold no-underline transition-colors ${
                   isLight
                     ? 'border-kd-lila-deep text-kd-lila-deep hover:text-kd-lila'
@@ -552,7 +552,7 @@ function CTA({ isLight }: { isLight: boolean }) {
           Una conversación es el primer commit. Te respondemos en menos de 48h.
         </p>
         <Link
-          href={routes.contacto}
+          href={routes.contact}
           className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-8 py-4 font-mono font-semibold text-lg text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
         >
           Contactar <span className="animate-cs-blink" aria-hidden="true">_</span>
@@ -680,7 +680,7 @@ export default function Home() {
 
             {/* Desktop CTA */}
             <Link
-              href={routes.contacto}
+              href={routes.contact}
               className={`hidden md:inline-flex items-center gap-2 rounded-[0.625rem] px-5 py-2.5 font-mono font-semibold text-[14px] no-underline transition-all hover:-translate-y-0.5 ${
                 light
                   ? 'bg-[#6b5db8] text-white hover:bg-[#5d4fa8]'
@@ -771,7 +771,7 @@ export default function Home() {
             </Link>
           ))}
           <Link
-            href={routes.contacto}
+            href={routes.contact}
             onClick={() => setMenuOpen(false)}
             tabIndex={menuOpen ? 0 : -1}
             className={`mt-4 flex items-center justify-center gap-2 rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] no-underline transition-all hover:-translate-y-0.5 ${
