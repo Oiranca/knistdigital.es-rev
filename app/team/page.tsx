@@ -34,7 +34,7 @@ function EquipoHero({ light }: { light: boolean }) {
           </span>
           <h1
             className={`m-0 font-display font-black leading-[1.02] tracking-[-0.04em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(40px, 6vw, 80px)' }}
+            style={{ fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.96 }}
           >
             El <em className="gradient-text not-italic">hilo</em> que nos une
           </h1>
@@ -43,36 +43,35 @@ function EquipoHero({ light }: { light: boolean }) {
           </p>
         </div>
 
+        {/* Editor — always dark so bright accent tokens remain legible */}
         <div
-          className={`overflow-hidden rounded-lg border font-mono text-sm ${
-            light ? 'border-black/10 bg-white shadow-lg' : 'border-cs-line bg-cs-bg-card'
-          }`}
+          className="overflow-hidden rounded-lg border border-cs-line bg-cs-bg-card font-mono text-sm"
           role="img"
           aria-label="Lista del equipo"
         >
-          <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
+          <div className="flex items-center gap-2 border-b border-cs-line bg-cs-bg-2 px-4 py-3">
             <span className="h-3 w-3 rounded-full bg-mac-red" />
             <span className="h-3 w-3 rounded-full bg-mac-yellow" />
             <span className="h-3 w-3 rounded-full bg-mac-green" />
-            <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
+            <span className="ml-3 rounded bg-cs-bg px-3 py-0.5 text-xs text-cs-fg-soft">
               team.json
             </span>
             <span className="flex-1" />
-            <span className={`text-[11px] ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{team.length} members</span>
+            <span className="text-[11px] text-cs-fg-soft">{team.length} members</span>
           </div>
           <pre
-            className={`m-0 overflow-x-auto p-4 leading-7 ${light ? 'bg-white text-[#1a1b1e]' : 'bg-cs-bg-card text-cs-fg'}`}
+            className="m-0 overflow-x-auto bg-cs-bg-card p-4 leading-7 text-cs-fg"
             aria-hidden="true"
           >
             {shown >= 1 && (
               <code className="flex gap-4">
-                <span className={`w-6 select-none text-right ${light ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>01</span>
+                <span className="w-6 select-none text-right text-cs-fg-soft">01</span>
                 <span>{'{'}</span>
               </code>
             )}
             {team.slice(0, Math.max(0, shown - 1)).map((m, i) => (
               <code key={m.name} className="flex gap-4">
-                <span className={`w-6 select-none text-right ${light ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>
+                <span className="w-6 select-none text-right text-cs-fg-soft">
                   {String(i + 2).padStart(2, '0')}
                 </span>
                 <span className="whitespace-pre">
@@ -86,7 +85,7 @@ function EquipoHero({ light }: { light: boolean }) {
             ))}
             {shown >= total && (
               <code className="flex gap-4">
-                <span className={`w-6 select-none text-right ${light ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>
+                <span className="w-6 select-none text-right text-cs-fg-soft">
                   {String(team.length + 2).padStart(2, '0')}
                 </span>
                 <span>{'}'}</span>
@@ -113,44 +112,48 @@ function TeamGrid({ light }: { light: boolean }) {
           <h2
             id="eq-team-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             El ovillo
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {team.map((member, i) => (
             <article
               key={member.name}
-              className={`overflow-hidden rounded-xl border ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
+              className="overflow-hidden rounded-[14px] transition-all duration-[250ms] hover:-translate-y-[3px]"
+              style={{
+                border: `1px solid ${light ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)'}`,
+                background: light ? '#fff' : 'var(--color-cs-bg-card)',
+              }}
             >
-              {/* Photo */}
-              <div className="relative aspect-[4/3] overflow-hidden">
+              {/* Photo — square 1:1 */}
+              <div className="relative aspect-square overflow-hidden">
                 <img
                   src={member.img}
                   alt={`Retrato de ${member.name}`}
                   loading="lazy"
                   className="h-full w-full object-cover"
+                  style={{ filter: 'saturate(0.9)' }}
                 />
+                {/* Role tag — bottom-left pill with border */}
                 <span
-                  className={`absolute bottom-2 right-2 rounded px-2 py-0.5 font-mono text-xs font-bold ${
-                    light ? 'bg-white/90 text-[#1a1b1e]' : 'bg-cs-bg/90 text-cs-fg-soft'
-                  }`}
+                  className="absolute bottom-2 left-2 rounded-full border px-3 py-0.5 font-mono text-xs font-bold"
+                  style={{
+                    background: light ? '#fff' : 'var(--color-cs-bg-card)',
+                    borderColor: light ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)',
+                    color: light ? '#555' : 'var(--color-cs-fg-soft)',
+                  }}
                 >
-                  {String(i + 1).padStart(2, '0')}
+                  {member.role}
                 </span>
               </div>
               {/* Body */}
-              <div className="flex flex-col gap-2 p-5">
-                <div className="flex items-baseline justify-between gap-2">
-                  <h3 className={`m-0 font-display font-black text-xl ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
-                    {member.name}
-                  </h3>
-                  <span className={`font-mono text-xs text-syn-comment`}>
-                    {member.role}
-                  </span>
-                </div>
+              <div className="flex flex-col gap-2 px-5 py-[18px]">
+                <h3 className={`m-0 font-display font-extrabold text-xl tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
+                  {member.name}
+                </h3>
                 <p className={`m-0 text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
                   {member.bio}
                 </p>
@@ -166,7 +169,7 @@ function TeamGrid({ light }: { light: boolean }) {
 function WhySection({ light }: { light: boolean }) {
   return (
     <section
-      className={`px-8 py-16 ${light ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`}
+      className={`px-8 py-16 ${light ? 'bg-[#ebe7dd]' : 'bg-cs-bg-2'}`}
       aria-labelledby="eq-why-title"
     >
       <div className="mx-auto max-w-[1320px]">
@@ -177,7 +180,7 @@ function WhySection({ light }: { light: boolean }) {
           <h2
             id="eq-why-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             ¿Por qué KnitsDigital?
           </h2>
@@ -187,7 +190,7 @@ function WhySection({ light }: { light: boolean }) {
           {whyValues.map((w, i) => (
             <article
               key={w.title}
-              className={`rounded-xl border p-6 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
+              className={`rounded-[14px] border p-6 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
             >
               <div className="mb-3 flex items-baseline gap-3">
                 <span className={`font-mono font-black text-2xl ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}>
@@ -215,7 +218,7 @@ export default function EquipoPage() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#f4f1ea' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >

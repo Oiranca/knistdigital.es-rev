@@ -57,7 +57,7 @@ function ServiciosHero({ light }: { light: boolean }) {
           </span>
           <h1
             className={`m-0 font-display font-black leading-[1.02] tracking-[-0.04em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(40px, 6vw, 80px)' }}
+            style={{ fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.96 }}
           >
             Tejiendo el{' '}
             <em className="gradient-text not-italic">futuro</em>{' '}
@@ -77,31 +77,29 @@ function ServiciosHero({ light }: { light: boolean }) {
           </div>
         </div>
 
-        {/* Editor */}
+        {/* Editor — always dark so bright accent tokens remain legible */}
         <div
-          className={`overflow-hidden rounded-lg border font-mono text-sm ${
-            light ? 'border-black/10 bg-white shadow-lg' : 'border-cs-line bg-cs-bg-card'
-          }`}
+          className="overflow-hidden rounded-lg border border-cs-line bg-cs-bg-card font-mono text-sm"
           role="img"
           aria-label="Tabla de servicios"
         >
-          <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
+          <div className="flex items-center gap-2 border-b border-cs-line bg-cs-bg-2 px-4 py-3">
             <span className="h-3 w-3 rounded-full bg-mac-red" />
             <span className="h-3 w-3 rounded-full bg-mac-yellow" />
             <span className="h-3 w-3 rounded-full bg-mac-green" />
-            <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
+            <span className="ml-3 rounded bg-cs-bg px-3 py-0.5 text-xs text-cs-fg-soft">
               servicios.ts
             </span>
             <span className="flex-1" />
-            <span className={`text-[11px] ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>5 categorías</span>
+            <span className="text-[11px] text-cs-fg-soft">5 categorías</span>
           </div>
           <pre
-            className={`m-0 overflow-x-auto p-4 leading-7 ${light ? 'bg-white text-[#1a1b1e]' : 'bg-cs-bg-card text-cs-fg'}`}
+            className="m-0 overflow-x-auto bg-cs-bg-card p-4 leading-7 text-cs-fg"
             aria-hidden="true"
           >
             {serviceCats.slice(0, shown).map((c, i) => (
               <code key={c.num} className="flex gap-4">
-                <span className={`w-6 select-none text-right ${light ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>
+                <span className="w-6 select-none text-right text-cs-fg-soft">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="whitespace-pre">
@@ -127,36 +125,53 @@ function ServiciosHero({ light }: { light: boolean }) {
 }
 
 function ServiceCatCard({ cat, light }: { cat: typeof serviceCats[0]; light: boolean }) {
-  const accentClasses: Record<string, { border: string; num: string; h3: string }> = {
+  const accentVars: Record<string, string> = {
+    lila: 'var(--color-kd-lila)',
+    turquesa: 'var(--color-kd-turquesa)',
+    pistacho: 'var(--color-kd-pistacho)',
+  };
+  const accentClasses: Record<string, { num: string; h3: string }> = {
     lila: {
-      border: light ? 'border-kd-lila/30' : 'border-kd-lila/20',
-      num: 'text-kd-lila',
-      h3: 'text-kd-lila',
+      num: light ? 'text-kd-lila-deep' : 'text-kd-lila',
+      h3: light ? 'text-[#1a1a1a]' : 'text-kd-lila',
     },
     turquesa: {
-      border: light ? 'border-kd-turquesa/30' : 'border-kd-turquesa/20',
-      num: 'text-kd-turquesa',
-      h3: 'text-kd-turquesa',
+      num: light ? 'text-kd-turquesa-deep' : 'text-kd-turquesa',
+      h3: light ? 'text-[#1a1a1a]' : 'text-kd-turquesa',
     },
     pistacho: {
-      border: light ? 'border-kd-pistacho/30' : 'border-kd-pistacho/20',
-      num: 'text-kd-pistacho',
-      h3: 'text-kd-pistacho',
+      num: light ? 'text-kd-olive' : 'text-kd-pistacho',
+      h3: light ? 'text-[#1a1a1a]' : 'text-kd-pistacho',
     },
   };
 
   const ac = accentClasses[cat.accent];
+  const accentColor = accentVars[cat.accent];
   const { ref, revealed } = useReveal();
 
   return (
     <article
       ref={ref}
-      className={`rounded-xl border p-8 transition-all duration-700 ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'} ${ac.border}`}
+      className={`group rounded-[14px] border p-8 transition-all duration-700 hover:-translate-y-0.5 hover:duration-[250ms] ${revealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'} ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
+      style={{
+        ['--accent-color' as string]: accentColor,
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = accentColor;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.borderColor = '';
+      }}
     >
-      <header className="mb-4 flex items-baseline gap-4">
-        <span className={`font-mono text-2xl font-black ${ac.num}`}>{cat.num}</span>
+      <header className="mb-4 flex items-start gap-4">
+        <span
+          className={`shrink-0 rounded font-mono text-[13px] font-semibold ${ac.num}`}
+          style={{ padding: '4px 10px', background: `color-mix(in srgb, ${accentColor} 15%, transparent)` }}
+        >
+          {cat.num}
+        </span>
         <div>
-          <h3 className={`m-0 font-display font-black text-xl tracking-tight ${ac.h3}`}>
+          <h3 className={`m-0 font-display font-black text-[26px] tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
             {cat.title}
           </h3>
           <p className={`m-0 mt-1 text-sm ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{cat.sub}</p>
@@ -166,7 +181,7 @@ function ServiceCatCard({ cat, light }: { cat: typeof serviceCats[0]; light: boo
         {cat.cards.map((card) => (
           <div
             key={card.title}
-            className={`rounded-lg border p-5 ${light ? 'border-black/8 bg-[#f5f5f7]' : 'border-cs-line bg-cs-bg'}`}
+            className={`rounded-lg border p-5 ${light ? 'border-black/8 bg-[#f4f1ea]' : 'border-cs-line bg-cs-bg'}`}
           >
             <h4 className={`m-0 mb-2 font-display font-bold text-base ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>
               {card.title}
@@ -192,7 +207,7 @@ function ServiciosCats({ light }: { light: boolean }) {
           <h2
             id="sv-cats-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             ¿Qué tejemos en KnitsDigital?
           </h2>
@@ -214,7 +229,7 @@ function ServiciosCats({ light }: { light: boolean }) {
 function ServiciosCTA({ light }: { light: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${light ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`}
+      className={`px-8 py-20 ${light ? 'bg-[#ebe7dd]' : 'bg-cs-bg-2'}`}
       aria-labelledby="sv-cta-title"
     >
       <div className="mx-auto max-w-[900px] text-center">
@@ -224,10 +239,9 @@ function ServiciosCTA({ light }: { light: boolean }) {
         <h2
           id="sv-cta-title"
           className={`mb-4 mt-4 font-display font-black leading-tight tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-          style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+          style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
         >
-          Invierte en el futuro de tu negocio,{' '}
-          <span className="gradient-text italic">con muy buen rollo</span>
+          Invierte en el futuro de tu negocio, con muy buen rollo
         </h2>
         <p className={`mx-auto mb-8 max-w-[52ch] ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
           El diseño y desarrollo centrado en las personas mejora la accesibilidad, expande el mercado y aumenta la satisfacción de tus clientes.
@@ -251,7 +265,7 @@ export default function ServiciosPage() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#f4f1ea' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >

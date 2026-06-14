@@ -24,16 +24,29 @@
   --color-cs-fg: #e4e5eb;
   --color-cs-fg-soft: #888a94;
 
-  /* Light mode equivalents */
-  --color-cs-bg-light: #f5f5f7;
-  --color-cs-bg-2-light: #ebebed;
-  --color-cs-fg-light: #1a1b1e;
-  --color-cs-fg-soft-light: #6e6f75;
+  /* Light mode equivalents — CodeStudio warm beige surface */
+  --color-cs-bg-light: #f4f1ea;
+  --color-cs-bg-2-light: #ebe7dd;
+  --color-cs-bg-card-light: #fff;
+  --color-cs-line-light: rgba(0, 0, 0, 0.08);
+  --color-cs-line-strong-light: rgba(0, 0, 0, 0.14);
+  --color-cs-fg-light: #1a1a1a;
+  --color-cs-fg-soft-light: #555;
 
-  /* Syntax highlight colors */
+  /* Olive accent — AA-safe pistacho replacement for light mode */
+  --color-kd-olive: #5a6b18;
+
+  /* Syntax highlight colors — dark/editor defaults */
   --color-syn-keyword: #c586c0;
   --color-syn-comment: #6a9955;
   --color-syn-bool: #569cd6;
+
+  /* Syntax highlight colors — light body text */
+  --color-syn-keyword-light: #af00db;
+  --color-syn-function-light: #018a6c;
+  --color-syn-comment-light: #4a7d3e;
+  --color-syn-string-light: #a8ba53;
+  --color-syn-bool-light: #0451a5;
 
   /* macOS traffic light colors */
   --color-mac-red: #ff5f57;
@@ -60,8 +73,9 @@
   /* v3 animations */
   --animate-v3-rise: v3-rise 0.6s var(--kd-ease, ease) forwards;
 
-  /* Easing */
-  --kd-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  /* Easing — kd-ease: expressive spring; kd-ease-soft: standard material */
+  --kd-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --kd-ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Component tokens */
   --color-tab-active-dark: color-mix(in srgb, var(--color-kd-pistacho) 14%, transparent);
@@ -122,9 +136,15 @@
   left: 1rem;
 }
 
-/* Gradient text utility */
+/* Gradient text utility — dark: pistacho→turquesa; light: lila-deep→turquesa-deep */
 .gradient-text {
   background: linear-gradient(135deg, var(--color-kd-pistacho), var(--color-kd-turquesa));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.is-light .gradient-text {
+  background: linear-gradient(135deg, var(--color-kd-lila-deep), var(--color-kd-turquesa-deep));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -142,9 +162,26 @@
 /* Grid background — light mode override */
 .is-light.cs-grid-bg {
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
 }
+
+/* Hero / CTA button hover behaviors */
+.cs-btn:hover { transform: translateY(-2px); }
+.cs-btn-ghost:hover { transform: translateY(-2px); }
+.cs-btn-ghost:hover .cs-arrow,
+.cs-btn:hover .cs-arrow { transform: translateX(3px); }
+
+/* Nav CTA arrow slide (no lift — nav CTA does not translateY) */
+.cs-nav-cta:hover .cs-arrow { transform: translateX(3px); }
+
+/* Commit card hover border */
+.cs-commit-hover { transition: border-color .25s, background .25s; }
+
+/* Tree item hover */
+.cs-tree-item-btn { transition: background .15s, color .15s; }
+.cs-tree-item-btn:hover { background: rgba(255,255,255,.08); }
+.is-light .cs-tree-item-btn:hover { background: rgba(0,0,0,.05); }
 
 /* Marquee track */
 .marquee-track {

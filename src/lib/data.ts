@@ -331,6 +331,7 @@ export const maintenance: MaintenancePlan[] = [
       ['Backups', 'Mensuales'],
       ['Monitorización', 'Básica (uptime)'],
       ['WordPress', 'Actualización plugins/core'],
+      ['Código', 'Revisión despliegue'],
       ['SEO', 'Indexación y metadatos'],
       ['Accesibilidad', 'Contrastes y estructura'],
     ],

@@ -12,93 +12,94 @@ export default function GraciasPage() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#f4f1ea' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >
       <PageNav isLight={isLight} mounted={mounted} toggle={toggle} />
       <main id="main" tabIndex={-1}>
-        <section
-          className="relative flex min-h-[70vh] items-center overflow-hidden px-8 py-[100px]"
-          aria-labelledby="nf-title"
-          style={{ background: light ? '#f5f5f7' : '#0c0d10' }}
+        <div
+          className="mx-auto flex max-w-[760px] flex-col items-center gap-5 px-8 py-[60px] text-center"
+          aria-labelledby="ty-title"
         >
-          {/* Background SVG thread */}
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
-            viewBox="0 0 1440 700"
-            preserveAspectRatio="xMidYMid slice"
+          {/* Status code glyph */}
+          <p
+            className="m-0 font-display font-black leading-none"
+            style={{
+              fontSize: 'clamp(80px, 14vw, 160px)',
+              letterSpacing: '-0.04em',
+              background: light
+                ? 'linear-gradient(135deg, var(--color-kd-lila-deep), var(--color-kd-turquesa-deep) 50%, var(--color-kd-olive))'
+                : 'linear-gradient(135deg, var(--color-kd-pistacho), var(--color-kd-turquesa) 50%, var(--color-kd-lila))',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent',
+            }}
             aria-hidden="true"
           >
-            <defs>
-              <linearGradient id="thanksGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stopColor="#d2e968" />
-                <stop offset="1" stopColor="#01c095" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M-50 480 C 280 200, 540 540, 800 360 S 1200 200, 1500 320"
-              stroke="url(#thanksGrad)"
-              strokeWidth="80"
-              fill="none"
-              opacity=".25"
-              strokeLinecap="round"
-            />
-            <path
-              d="M-50 280 C 280 480, 540 140, 800 320 S 1200 480, 1500 200"
-              stroke="url(#thanksGrad)"
-              strokeWidth="14"
-              fill="none"
-              opacity=".55"
-              strokeLinecap="round"
-            />
-          </svg>
+            200
+          </p>
 
-          {/* Inner content */}
-          <div className="relative z-10 mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">
-            {/* Illustration */}
-            <p
-              className="m-0 font-display font-black leading-none tracking-[-0.05em]"
-              style={{
-                fontSize: 'clamp(80px, 16vw, 200px)',
-                background: 'linear-gradient(135deg, #d2e968, #01c095 50%, #a99df1)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-              }}
-              aria-hidden="true"
-            >
-              ✓
-            </p>
+          <h1
+            id="ty-title"
+            className={`m-0 font-display font-black leading-none tracking-[-0.025em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
+            style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}
+          >
+            ¡Enviado!
+          </h1>
 
-            <h1
-              id="nf-title"
-              className={`m-0 font-display font-black leading-none tracking-[-0.025em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-              style={{ fontSize: 'clamp(34px, 5vw, 56px)' }}
-            >
-              ¡Enviado!
-            </h1>
-
-            <h2
-              className="m-0 font-display font-extrabold text-[22px] text-kd-pistacho"
-            >
-              Muchas gracias por contactar
-            </h2>
-
-            <p className={`m-0 max-w-[50ch] text-[17px] leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Nos aseguraremos de responderte lo antes posible.
-            </p>
-
-            <div className="mt-2 inline-flex flex-wrap justify-center gap-3">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 rounded-[0.625rem] bg-kd-pistacho px-6 py-3 font-mono font-semibold text-[15px] text-kd-black no-underline transition-transform hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
-              >
-                Volver al inicio <span aria-hidden="true">→</span>
-              </Link>
+          {/* Terminal panel */}
+          <div
+            className="w-full rounded-[14px] border p-8 text-left font-mono text-sm"
+            style={{
+              background: light ? '#fff' : 'var(--color-cs-bg-card)',
+              borderColor: light ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)',
+              boxShadow: light ? '0 8px 24px rgba(0,0,0,.08)' : '0 16px 40px rgba(0,0,0,.3)',
+            }}
+            aria-hidden="true"
+          >
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2">
+                <span className={light ? 'text-[#555]' : 'text-cs-fg-soft'}>$</span>
+                <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>POST /contact</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-kd-pistacho">✓</span>
+                <span className="text-kd-pistacho">200 OK — Message sent</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className={light ? 'text-[#555]' : 'text-cs-fg-soft'}>→</span>
+                <span className={light ? 'text-[#555]' : 'text-cs-fg-soft'}>Response: Te responderemos en menos de 48h</span>
+              </div>
             </div>
           </div>
-        </section>
+
+          <p className={`m-0 max-w-[50ch] text-[15px] leading-relaxed ${light ? 'text-[#555]' : 'text-cs-fg-soft'}`}>
+            Muchas gracias por contactar. Nos aseguraremos de responderte lo antes posible.
+          </p>
+
+          {/* Action buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 rounded-[10px] bg-kd-pistacho px-[22px] py-[14px] font-mono text-[13px] font-semibold text-kd-black no-underline transition-all duration-[250ms] hover:-translate-y-0.5 hover:bg-[#e5fc7a]"
+            >
+              Volver al inicio <span aria-hidden="true">_</span>
+            </Link>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 rounded-[10px] px-[22px] py-[14px] font-mono text-[13px] font-semibold no-underline transition-all duration-[250ms] hover:-translate-y-0.5"
+              style={{
+                background: light ? '#fff' : 'var(--color-cs-bg-card)',
+                border: '1px solid',
+                borderColor: light ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)',
+                color: light ? '#1a1b1e' : 'var(--color-cs-fg)',
+              }}
+            >
+              Ver servicios
+            </Link>
+          </div>
+        </div>
       </main>
       <PageFooter isLight={light} />
     </div>

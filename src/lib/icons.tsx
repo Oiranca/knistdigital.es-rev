@@ -1,68 +1,89 @@
 import React from 'react';
 
 interface IconProps {
-  name: 'sun' | 'moon' | 'menu' | 'close' | 'instagram' | 'linkedin' | 'spark' | 'play' | 'pause' | 'accessibility' | 'people' | 'growth';
+  name:
+    | 'sun'
+    | 'moon'
+    | 'menu'
+    | 'close'
+    | 'instagram'
+    | 'linkedin'
+    | 'spark'
+    | 'play'
+    | 'pause'
+    | 'check'
+    | 'arrow-right'
+    | 'arrow-down'
+    | 'accessibility'
+    | 'people'
+    | 'growth';
   className?: string;
   'aria-hidden'?: boolean | 'true' | 'false';
   width?: number;
   height?: number;
+  strokeWidth?: number;
 }
 
 const PATHS: Record<IconProps['name'], React.ReactNode> = {
+  // r=4 + compact ray path — from data.jsx
   sun: (
     <>
-      <circle cx="12" cy="12" r="5" />
-      <line x1="12" y1="1" x2="12" y2="3" />
-      <line x1="12" y1="21" x2="12" y2="23" />
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-      <line x1="1" y1="12" x2="3" y2="12" />
-      <line x1="21" y1="12" x2="23" y2="12" />
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
     </>
   ),
+  // from data.jsx
   moon: (
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    <path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z" />
   ),
+  // three-path variant from data.jsx
   menu: (
-    <>
-      <line x1="3" y1="6" x2="21" y2="6" />
-      <line x1="3" y1="12" x2="21" y2="12" />
-      <line x1="3" y1="18" x2="21" y2="18" />
-    </>
+    <path d="M4 7h16M4 12h16M4 17h16" />
   ),
+  // X variant from data.jsx
   close: (
-    <>
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </>
+    <path d="M6 6l12 12M18 6L6 18" />
   ),
+  // rect rx=5 + circle lens + filled dot — from data.jsx
   instagram: (
     <>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r=".7" fill="currentColor" />
     </>
   ),
+  // rounded-square + "in" path — from data.jsx
   linkedin: (
     <>
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7" />
     </>
   ),
   spark: (
-    <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z" />
+    <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" />
   ),
+  // filled triangle — from data.jsx
   play: (
-    <polygon points="5 3 19 12 5 21 5 3" />
+    <path d="M8 5v14l11-7z" />
   ),
+  // two filled rounded-rect bars — matching original
   pause: (
     <>
-      <rect x="6" y="4" width="4" height="16" />
-      <rect x="14" y="4" width="4" height="16" />
+      <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none" />
+      <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" stroke="none" />
     </>
+  ),
+  // from data.jsx
+  check: (
+    <path d="M4 12l5 5 11-11" />
+  ),
+  // from data.jsx
+  'arrow-right': (
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  ),
+  // from data.jsx
+  'arrow-down': (
+    <path d="M12 5v14M6 13l6 6 6-6" />
   ),
   accessibility: (
     <>
@@ -91,6 +112,7 @@ export function Icon({
   'aria-hidden': ariaHidden = true,
   width = 20,
   height = 20,
+  strokeWidth = 1.5,
 }: IconProps) {
   return (
     <svg
@@ -100,7 +122,7 @@ export function Icon({
       height={height}
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}

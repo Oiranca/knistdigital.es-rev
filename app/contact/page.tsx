@@ -71,10 +71,10 @@ function ContactForm({ light }: { light: boolean }) {
     }
   };
 
-  const inputCls = `w-full rounded-md border px-3 py-2.5 font-body text-base outline-none transition-colors focus:border-kd-pistacho ${
+  const inputCls = `w-full rounded-[10px] font-mono text-sm outline-none transition-colors ${
     light
-      ? 'border-black/10 bg-[#f5f5f7] text-[#1a1b1e] placeholder:text-[#6e6f75]'
-      : 'border-cs-line bg-cs-bg text-cs-fg placeholder:text-cs-fg-soft'
+      ? 'border-kd-lila-deep/30 bg-[#ebe7dd] text-[#1a1b1e] placeholder:text-[#6e6f75] focus:border-kd-lila-deep'
+      : 'border-cs-line bg-cs-bg text-cs-fg placeholder:text-cs-fg-soft focus:border-kd-pistacho'
   }`;
 
   const labelCls = `block font-mono text-sm mb-1 ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`;
@@ -95,7 +95,7 @@ function ContactForm({ light }: { light: boolean }) {
 
   return (
     <form
-      className={`rounded-xl border p-8 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
+      className={`rounded-[14px] border p-8 ${light ? 'border-black/10 bg-[#ebe7dd]' : 'border-cs-line bg-cs-bg-2'}`}
       onSubmit={onSubmit}
       noValidate
       aria-label="Formulario de contacto"
@@ -103,7 +103,8 @@ function ContactForm({ light }: { light: boolean }) {
       {/* Name */}
       <div className="mb-5">
         <label htmlFor="ct-name" className={labelCls}>
-          {'> nombre'} <span className="text-kd-red" aria-label="requerido">*</span>
+          <span className={light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'} aria-hidden="true">{'> '}</span>{'nombre'}{' '}
+          <span className={light ? 'text-kd-lila-deep' : 'text-kd-lila'} aria-label="requerido">*</span>
         </label>
         <input
           id="ct-name"
@@ -119,14 +120,16 @@ function ContactForm({ light }: { light: boolean }) {
           aria-invalid={!!show('name')}
           aria-describedby={show('name') ? 'err-name' : undefined}
           className={inputCls}
+          style={{ padding: '14px 16px', border: '1.5px solid', borderColor: show('name') ? 'var(--color-kd-red)' : undefined }}
         />
-        {show('name') && <p id="err-name" role="alert" className="mt-1 text-sm text-kd-red">{show('name')}</p>}
+        {show('name') && <p id="err-name" role="alert" className={`mt-1 text-sm ${light ? 'text-kd-red' : 'text-[#ff9ec0]'}`}>{show('name')}</p>}
       </div>
 
       {/* Email */}
       <div className="mb-5">
         <label htmlFor="ct-email" className={labelCls}>
-          {'> email'} <span className="text-kd-red" aria-label="requerido">*</span>
+          <span className={light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'} aria-hidden="true">{'> '}</span>{'email'}{' '}
+          <span className={light ? 'text-kd-lila-deep' : 'text-kd-lila'} aria-label="requerido">*</span>
         </label>
         <input
           id="ct-email"
@@ -142,14 +145,16 @@ function ContactForm({ light }: { light: boolean }) {
           aria-invalid={!!show('email')}
           aria-describedby={show('email') ? 'err-email' : undefined}
           className={inputCls}
+          style={{ padding: '14px 16px', border: '1.5px solid', borderColor: show('email') ? 'var(--color-kd-red)' : undefined }}
         />
-        {show('email') && <p id="err-email" role="alert" className="mt-1 text-sm text-kd-red">{show('email')}</p>}
+        {show('email') && <p id="err-email" role="alert" className={`mt-1 text-sm ${light ? 'text-kd-red' : 'text-[#ff9ec0]'}`}>{show('email')}</p>}
       </div>
 
       {/* Message */}
       <div className="mb-5">
         <label htmlFor="ct-message" className={labelCls}>
-          {'> mensaje'} <span className="text-kd-red" aria-label="requerido">*</span>
+          <span className={light ? 'text-kd-turquesa-deep' : 'text-kd-pistacho'} aria-hidden="true">{'> '}</span>{'mensaje'}{' '}
+          <span className={light ? 'text-kd-lila-deep' : 'text-kd-lila'} aria-label="requerido">*</span>
         </label>
         <textarea
           id="ct-message"
@@ -165,8 +170,9 @@ function ContactForm({ light }: { light: boolean }) {
           aria-invalid={!!show('message')}
           aria-describedby={show('message') ? 'err-message' : undefined}
           className={`${inputCls} resize-y`}
+          style={{ padding: '14px 16px', border: '1.5px solid', borderColor: show('message') ? 'var(--color-kd-red)' : undefined }}
         />
-        {show('message') && <p id="err-message" role="alert" className="mt-1 text-sm text-kd-red">{show('message')}</p>}
+        {show('message') && <p id="err-message" role="alert" className={`mt-1 text-sm ${light ? 'text-kd-red' : 'text-[#ff9ec0]'}`}>{show('message')}</p>}
       </div>
 
       {/* Privacy checkbox */}
@@ -184,13 +190,13 @@ function ContactForm({ light }: { light: boolean }) {
           />
           <span className={`text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
             He leído y acepto los términos y condiciones de{' '}
-            <Link href={routes.privacy} className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}>
+            <Link href={routes.privacy} className={`underline underline-offset-2 ${light ? 'text-kd-lila-deep' : 'text-kd-pistacho'}`}>
               privacidad
             </Link>{' '}
-            <span className="text-kd-red" aria-label="requerido">*</span>
+            <span className={light ? 'text-kd-lila-deep' : 'text-kd-lila'} aria-label="requerido">*</span>
           </span>
         </label>
-        {show('privacy') && <p role="alert" className="mt-1 text-sm text-kd-red">{show('privacy')}</p>}
+        {show('privacy') && <p role="alert" className={`mt-1 text-sm ${light ? 'text-kd-red' : 'text-[#ff9ec0]'}`}>{show('privacy')}</p>}
       </div>
 
       {serverError && (
@@ -201,9 +207,9 @@ function ContactForm({ light }: { light: boolean }) {
 
       <button
         type="submit"
-        disabled={submitting}
-        aria-disabled={submitting}
-        className={`w-full rounded-[0.625rem] px-6 py-3 font-mono font-semibold text-[15px] transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed ${
+        disabled={submitting || !isValid}
+        aria-disabled={submitting || !isValid}
+        className={`w-full rounded-[10px] px-6 py-[14px] font-mono font-semibold text-[15px] transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed ${
           light ? 'bg-kd-lila-deep text-kd-black hover:bg-kd-lila-dark' : 'bg-kd-pistacho text-kd-black hover:bg-[#e5fc7a]'
         }`}
       >
@@ -220,7 +226,7 @@ export default function ContactoPage() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#f4f1ea' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >
@@ -236,7 +242,7 @@ export default function ContactoPage() {
               <h1
                 id="contacto-title"
                 className={`m-0 font-display font-black leading-[1.02] tracking-[-0.04em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-                style={{ fontSize: 'clamp(36px, 5vw, 72px)' }}
+                style={{ fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.96 }}
               >
                 ¡Engánchate a{' '}
                 <em className="gradient-text not-italic">nuestro hilo</em>!

@@ -42,7 +42,7 @@ function PreciosHero({ light }: { light: boolean }) {
           </span>
           <h1
             className={`m-0 font-display font-black leading-[1.02] tracking-[-0.04em] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(40px, 6vw, 80px)' }}
+            style={{ fontSize: 'clamp(48px, 7vw, 96px)', lineHeight: 0.96 }}
           >
             Tecnología que <em className="gradient-text not-italic">suma</em>
           </h1>
@@ -51,28 +51,27 @@ function PreciosHero({ light }: { light: boolean }) {
           </p>
         </div>
 
+        {/* Editor — always dark so bright accent tokens remain legible */}
         <div
-          className={`overflow-hidden rounded-lg border font-mono text-sm ${
-            light ? 'border-black/10 bg-white shadow-lg' : 'border-cs-line bg-cs-bg-card'
-          }`}
+          className="overflow-hidden rounded-lg border border-cs-line bg-cs-bg-card font-mono text-sm"
           role="img"
           aria-label="Lista de precios"
         >
-          <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
+          <div className="flex items-center gap-2 border-b border-cs-line bg-cs-bg-2 px-4 py-3">
             <span className="h-3 w-3 rounded-full bg-mac-red" />
             <span className="h-3 w-3 rounded-full bg-mac-yellow" />
             <span className="h-3 w-3 rounded-full bg-mac-green" />
-            <span className={`ml-3 rounded px-3 py-0.5 text-xs ${light ? 'bg-white text-[#6e6f75]' : 'bg-cs-bg text-cs-fg-soft'}`}>
+            <span className="ml-3 rounded bg-cs-bg px-3 py-0.5 text-xs text-cs-fg-soft">
               pricing.json
             </span>
           </div>
           <pre
-            className={`m-0 overflow-x-auto p-4 leading-7 ${light ? 'bg-white text-[#1a1b1e]' : 'bg-cs-bg-card text-cs-fg'}`}
+            className="m-0 overflow-x-auto bg-cs-bg-card p-4 leading-7 text-cs-fg"
             aria-hidden="true"
           >
             {PRICE_LINES.slice(0, shown).map((line, i) => (
               <code key={i} className="flex gap-4">
-                <span className={`w-6 select-none text-right ${light ? 'text-[#6e6f75]/60' : 'text-cs-fg-soft'}`}>
+                <span className="w-6 select-none text-right text-cs-fg-soft">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="whitespace-pre">
@@ -103,7 +102,7 @@ function FreelancerSection({ light }: { light: boolean }) {
           <h2
             id="pr-free-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(24px, 3.5vw, 44px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             Tu web profesional desde 79 €/mes
           </h2>
@@ -112,7 +111,7 @@ function FreelancerSection({ light }: { light: boolean }) {
           </p>
         </header>
 
-        <article className={`rounded-xl border p-8 ${light ? 'border-kd-lila/30 bg-white' : 'border-kd-lila/20 bg-cs-bg-card'}`}>
+        <article className={`rounded-[14px] border p-8 transition-all duration-[250ms] hover:-translate-y-1 ${light ? 'border-kd-lila/30 bg-white' : 'border-kd-lila/20 bg-cs-bg-card'}`}>
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
               <div className="flex items-baseline gap-3">
@@ -126,7 +125,10 @@ function FreelancerSection({ light }: { light: boolean }) {
               <p className={`m-0 leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
                 {freelancerPlan.desc}
               </p>
-              <div className={`font-display font-black text-3xl ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}>
+              <div
+                className={`font-display font-black ${light ? 'text-kd-lila-deep' : 'text-kd-lila'}`}
+                style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-0.025em', margin: '12px 0', lineHeight: 1 }}
+              >
                 {freelancerPlan.price}
               </div>
               <Link
@@ -146,13 +148,13 @@ function FreelancerSection({ light }: { light: boolean }) {
             </ul>
           </div>
 
-          <div className={`mt-6 rounded-lg border border-dashed p-5 ${light ? 'border-black/10 bg-[#f5f5f7]' : 'border-cs-line bg-cs-bg'}`}>
-            <h4 className={`m-0 mb-2 font-display font-black text-base ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>¿Cómo funciona?</h4>
-            <p className={`m-0 mb-2 text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Olvídate de pagar miles de euros de golpe. Con nuestro modelo mensual puedes lanzar tu web con todo lo que necesitas desde el primer día. Desarrollamos tu web desde cero y distribuimos el coste en cuotas mensuales.
+          <div className={`mt-6 rounded-[10px] border border-dashed p-5 ${light ? 'border-black/10 bg-[#ebe7dd]' : 'border-cs-line bg-cs-bg-2'}`}>
+            <h4 className={`m-0 mb-2 font-display font-black text-[18px] ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>¿Cómo funciona?</h4>
+            <p className={`m-0 mb-2 text-sm leading-[1.6] ${light ? 'text-cs-fg' : 'text-cs-fg'}`}>
+              Olvídate de pagar miles de euros de golpe. Con nuestro modelo mensual puedes lanzar tu web con todo lo que necesitas desde el primer día. Desarrollamos tu web desde cero y distribuimos el coste en cuotas mensuales, para que cualquier persona o negocio pueda acceder a un servicio profesional sin una gran inversión inicial.
             </p>
-            <p className={`m-0 text-sm leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
-              Incluye: diseño y desarrollo web, mantenimiento técnico, soporte y acompañamiento, y evolución continua de tu web.
+            <p className={`m-0 text-sm leading-[1.6] ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+              Incluye: diseño y desarrollo web, mantenimiento técnico, soporte y acompañamiento, y evolución continua de tu web. Existe un compromiso mínimo asociado al desarrollo inicial del proyecto.
             </p>
           </div>
         </article>
@@ -168,7 +170,7 @@ function LandingsSection({ light }: { light: boolean }) {
   };
 
   return (
-    <section className={`px-8 py-16 ${light ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`} aria-labelledby="pr-land-title">
+    <section className={`px-8 py-16 ${light ? 'bg-[#ebe7dd]' : 'bg-cs-bg-2'}`} aria-labelledby="pr-land-title">
       <div className="mx-auto max-w-[1320px]">
         <header className="mb-8 flex flex-col gap-2">
           <span className={`font-mono text-xs text-syn-comment`}>
@@ -177,7 +179,7 @@ function LandingsSection({ light }: { light: boolean }) {
           <h2
             id="pr-land-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(24px, 3.5vw, 44px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             Elige tu opción de landing
           </h2>
@@ -189,37 +191,66 @@ function LandingsSection({ light }: { light: boolean }) {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {landings.map((p) => {
             const ac = accentColors[p.accent];
+            const accentVar = p.accent === 'turquesa' ? 'var(--color-kd-turquesa)' : 'var(--color-kd-lila)';
             return (
               <article
                 key={p.name}
-                className={`flex flex-col overflow-hidden rounded-xl border ${light ? 'bg-white' : 'bg-cs-bg-card'} ${ac.border}`}
+                className={`flex flex-col overflow-hidden rounded-[14px] border transition-all duration-[250ms] hover:-translate-y-1 ${light ? 'bg-white' : 'bg-cs-bg-card'} ${ac.border}`}
+                style={{ borderWidth: '1.5px' }}
               >
-                <div className={`flex items-center gap-2 border-b px-4 py-3 ${light ? 'border-black/8 bg-[#f0f0f2]' : 'border-cs-line bg-cs-bg-2'}`}>
+                {/* Editor bar — always dark */}
+                <div className="flex items-center gap-2 border-b border-cs-line bg-cs-bg-2 px-4 py-[10px]">
                   <span className="h-3 w-3 rounded-full bg-mac-red" />
                   <span className="h-3 w-3 rounded-full bg-mac-yellow" />
                   <span className="h-3 w-3 rounded-full bg-mac-green" />
-                  <span className={`ml-2 font-mono text-xs ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>
+                  <span className="ml-2 font-mono text-xs text-cs-fg-soft">
                     {p.name.toLowerCase()}.json
                   </span>
                 </div>
-                <div className="flex flex-1 flex-col gap-3 p-6">
-                  <div className="flex items-baseline justify-between">
-                    <h3 className={`m-0 font-display font-black text-xl ${ac.text}`}>{p.name}</h3>
-                    <span className={`font-mono text-xs ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{p.plazo}</span>
+                {/* JSON-editor body */}
+                <div className="flex flex-1 flex-col gap-[14px] p-7 font-mono text-sm leading-[1.7]">
+                  <div>
+                    <span className={`${ac.text}`}>&quot;name&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>: </span>
+                    <span className={`${ac.text}`}>&quot;{p.name}&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>,</span>
                   </div>
-                  <div className={`font-display font-black text-3xl ${ac.text}`}>{p.price}</div>
-                  <p className={`m-0 text-sm italic ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{p.idealFor}</p>
-                  <ul className="m-0 flex flex-1 list-none flex-col gap-2 p-0">
-                    {p.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2">
-                        <span className={`mt-0.5 text-sm font-bold ${ac.text}`} aria-hidden="true">✓</span>
-                        <span className={`text-sm ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <span className={`${ac.text}`}>&quot;price&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>: </span>
+                    <span className={`${ac.text}`}>&quot;{p.price}&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>,</span>
+                  </div>
+                  <div>
+                    <span className={`${ac.text}`}>&quot;plazo&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>: </span>
+                    <span className={`${ac.text}`}>&quot;{p.plazo}&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>,</span>
+                  </div>
+                  <div>
+                    <span className={`${ac.text}`}>&quot;ideal_for&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>: </span>
+                    <span className={`${ac.text}`}>&quot;{p.idealFor}&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>,</span>
+                  </div>
+                  <div>
+                    <span className={`${ac.text}`}>&quot;features&quot;</span>
+                    <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>: [</span>
+                  </div>
+                  {p.features.map((f) => (
+                    <div key={f} className="pl-4">
+                      <span className={`${ac.text}`}>&quot;{f}&quot;</span>
+                      <span className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>,</span>
+                    </div>
+                  ))}
+                  <div className={light ? 'text-[#1a1b1e]' : 'text-cs-fg'}>]</div>
+                </div>
+                {/* CTA footer */}
+                <div className="border-t border-cs-line/30 p-6 pt-5">
                   <Link
                     href={routes.contact}
-                    className={`mt-2 self-start font-mono text-sm font-bold no-underline transition-colors hover:underline ${ac.text}`}
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-[10px] px-[22px] py-[14px] font-mono text-[13px] font-semibold text-kd-black no-underline transition-all duration-[250ms] hover:brightness-110 hover:-translate-y-0.5"
+                    style={{ background: accentVar }}
                   >
                     Solicitar presupuesto →
                   </Link>
@@ -234,10 +265,10 @@ function LandingsSection({ light }: { light: boolean }) {
           {extras.map((e) => (
             <div
               key={e.title}
-              className={`flex items-center justify-between rounded-lg border p-4 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-card'}`}
+              className={`flex items-center justify-between rounded-[10px] border p-4 ${light ? 'border-black/10 bg-white' : 'border-cs-line bg-cs-bg-2'}`}
             >
               <span className={`text-sm font-bold ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>{e.title}</span>
-              <span className={`font-mono text-sm font-bold ${light ? 'text-kd-turquesa-deep' : 'text-kd-turquesa'}`}>{e.price}</span>
+              <span className={`font-mono text-sm font-bold ${light ? 'text-kd-olive' : 'text-kd-turquesa'}`}>{e.price}</span>
             </div>
           ))}
         </div>
@@ -253,7 +284,7 @@ function MaintenanceSection({ light }: { light: boolean }) {
   const accentColors = {
     turquesa: light ? 'text-kd-turquesa-deep' : 'text-kd-turquesa',
     lila: light ? 'text-kd-lila-deep' : 'text-kd-lila',
-    pistacho: light ? 'text-kd-pistacho-deep' : 'text-kd-pistacho',
+    pistacho: light ? 'text-kd-olive' : 'text-kd-pistacho',
   };
   const borderColors = {
     turquesa: light ? 'border-kd-turquesa/30' : 'border-kd-turquesa/20',
@@ -271,7 +302,7 @@ function MaintenanceSection({ light }: { light: boolean }) {
           <h2
             id="pr-maint-title"
             className={`m-0 font-display font-black leading-none tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-            style={{ fontSize: 'clamp(24px, 3.5vw, 44px)' }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
           >
             Planes de mantenimiento
           </h2>
@@ -287,16 +318,22 @@ function MaintenanceSection({ light }: { light: boolean }) {
             return (
               <article
                 key={p.name}
-                className={`flex flex-col rounded-xl border p-6 ${light ? 'bg-white' : 'bg-cs-bg-card'} ${bc}`}
+                className={`flex flex-col rounded-[14px] border p-6 transition-all duration-[250ms] hover:-translate-y-1 ${light ? 'bg-white' : 'bg-cs-bg-card'} ${bc}`}
               >
-                <h3 className={`m-0 font-display font-black text-2xl ${ac}`}>{p.name}</h3>
-                <div className={`mt-1 mb-2 font-display font-black text-3xl ${ac}`}>{p.price}</div>
+                <h3 className={`m-0 font-display font-black text-[22px] ${ac}`}>{p.name}</h3>
+                <div className={`mt-1 mb-2 font-display font-black ${ac}`} style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-0.025em', lineHeight: 1 }}>{p.price}</div>
                 <p className={`m-0 mb-4 text-xs leading-relaxed ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{p.ideal}</p>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-[6px]">
                   {p.features.map(([label, value]) => (
                     <div
                       key={label}
-                      className={`border-l-2 pl-3 ${p.accent === 'turquesa' ? 'border-kd-turquesa' : p.accent === 'lila' ? 'border-kd-lila' : 'border-kd-pistacho'}`}
+                      className={`border-l-2 pl-3 ${
+                        p.accent === 'turquesa'
+                          ? light ? 'border-kd-turquesa-deep' : 'border-kd-turquesa'
+                          : p.accent === 'lila'
+                          ? light ? 'border-kd-lila-deep' : 'border-kd-lila'
+                          : light ? 'border-kd-olive' : 'border-kd-pistacho'
+                      }`}
                     >
                       <div className={`text-[10px] uppercase tracking-widest ${light ? 'text-[#6e6f75]' : 'text-cs-fg-soft'}`}>{label}</div>
                       <div className={`text-sm font-medium ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}>{value}</div>
@@ -318,7 +355,7 @@ function MaintenanceSection({ light }: { light: boolean }) {
 function PreciosCTA({ light }: { light: boolean }) {
   return (
     <section
-      className={`px-8 py-20 ${light ? 'bg-[#ebebed]' : 'bg-cs-bg-2'}`}
+      className={`px-8 py-20 ${light ? 'bg-[#ebe7dd]' : 'bg-cs-bg-2'}`}
       aria-labelledby="pr-cta-title"
     >
       <div className="mx-auto max-w-[900px] text-center">
@@ -328,7 +365,7 @@ function PreciosCTA({ light }: { light: boolean }) {
         <h2
           id="pr-cta-title"
           className={`mb-4 mt-4 font-display font-black leading-tight tracking-tight ${light ? 'text-[#1a1b1e]' : 'text-cs-fg'}`}
-          style={{ fontSize: 'clamp(28px, 4vw, 52px)' }}
+          style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
         >
           ¿No encuentras lo que buscas?
         </h2>
@@ -354,7 +391,7 @@ export default function PreciosPage() {
     <div
       className={`min-h-screen cs-grid-bg${light ? ' is-light' : ''}`}
       style={{
-        backgroundColor: light ? '#f5f5f7' : '#0c0d10',
+        backgroundColor: light ? '#f4f1ea' : '#0c0d10',
         color: light ? '#1a1b1e' : '#e4e5eb',
       }}
     >
